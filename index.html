@@ -1,0 +1,244 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Aetik's Blog🍉 - 欢迎来到Aetik的博客🍉</title><meta name="author" content="Aetik"><meta name="copyright" content="Aetik"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Wanna Be Compuer Science の 神 🍉">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Aetik&#39;s Blog🍉">
+<meta property="og:url" content="https://aetik-yue.github.io/index.html">
+<meta property="og:site_name" content="Aetik&#39;s Blog🍉">
+<meta property="og:description" content="Wanna Be Compuer Science の 神 🍉">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://aetik-yue.github.io/img/headimgnew.jpg">
+<meta property="article:author" content="Aetik">
+<meta property="article:tag" content="Aetik, 计算机科学, 学习日志, 日常生活, 个人思考">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://aetik-yue.github.io/img/headimgnew.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Aetik's Blog🍉",
+  "alternateName": [
+    "欢迎来到Aetik的博客🍉",
+    "aetik-yue.github.io"
+  ],
+  "url": "https://aetik-yue.github.io/"
+}</script><link rel="shortcut icon" href="/img/logo.png"><link rel="canonical" href="https://aetik-yue.github.io/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Aetik\'s Blog🍉',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'home'
+}</script><link rel="stylesheet" href="//at.alicdn.com/t/c/font_5140733_jqrcp7pitm.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div class="bg-animation" id="web_bg" style="background-image: url(https://i.loli.net/2019/09/09/5oDRkWVKctx2b6A.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/headimgnew.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">10</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url(/img/01.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Aetik's Blog🍉</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="site-info"><h1 id="site-title">Aetik's Blog🍉</h1><div id="site-subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="https://github.com/Aetik-yue" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:yanhaoruiruihaoyan@163.com" target="_blank" title="网易163邮箱"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://space.bilibili.com/517569450?spm_id_from=333.1007.0.0" target="_blank" title="Bilibili"><i class="iconfont icon-bilibili" style="color: #f05383;"></i></a><a class="social-icon" href="https://leetcode.cn/u/an-pei-la-xing-ren-d/" target="_blank" title="LeetCode"><i class="iconfont icon-leetcode2" style="color: #FFA116;"></i></a><a class="social-icon" href="https://blog.csdn.net/Aetik?spm=1000.2115.3001.5343" target="_blank" title="CSDN"><i class="iconfont icon-csdn" style="color: #DC3545;"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts nc" id="recent-posts"><div class="recent-post-items"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2026/05/15/1%E3%80%81%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/" title="1、数据库系统概述">1、数据库系统概述</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-05-15T13:06:00.000Z" title="发表于 2026-05-15 21:06:00">2026-05-15</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%86%85%E6%A0%B8%E7%90%86%E8%AE%BA/">数据库系统内核理论</a></span></div><div class="content">分为三大块，分别为数据库历史发展、系统分类、系统概述 1、在没有数据库的日子在没有数据库的时候，应用程序直接操作底层文件  利用文件系统将数据持久化 自己设计并发控制 自己设计故障恢复 自己定义文件格式和访问方式 应用来设计数据的逻辑结构 应用来设计数据物理结构、存储结构、存取方式、输入方法等数据库的迁移会很辛苦    2、抽象2.1、接口 数据定义语言DDL 数据查询语言SQL 数据操作语言DML  2.2、实现 实现DDL，DML，SQL 持久化–尤其是海量数据 故障恢复能力 并发控制与事务管理（隔离性和原子性）  3、早期数据库管理系统 层次模型 网状模型 缺点 没有高级查询语言 操作复杂    4、关系数据库系统1970年Edgar F. Codd提出  优点 建立在严格的数学概念的基础上，有理论基础 数据模型清晰–所有模型都使用关系来表示 接口非常清晰，逻辑层和物理层非常清晰的剥离    逻辑层物理层      —关键 4.1、NoSQL数据库（非关系数据库）  数据存储系统 API访问 不需要预定义模式 分布式支持 对象存储     4.2、数据库简史 5.数据库架构...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2026/04/22/HTML%EF%BC%88%E4%B8%89%EF%BC%89%E5%B1%9E%E6%80%A7/" title="HTML（三）属性">HTML（三）属性</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-04-22T02:00:00.000Z" title="发表于 2026-04-22 10:00:00">2026-04-22</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></span></div><div class="content">“标签怎么补充信息，怎么真正变得可用”这就是 属性（attribute）。 可以把它理解成：  标签 &#x3D; 一个对象  属性 &#x3D; 这个对象的附加说明   例如： 1&lt;a href=&quot;https://example.com&quot;&gt;官网&lt;/a&gt;  这里：  a 是链接标签  href 是属性  https://example.com 是属性值   也就是说： 标签定义“这是什么”，属性定义“它更具体是什么样、做什么、指向哪里”。  一、HTML 属性到底是什么先看一个简单例子： 1&lt;img src=&quot;cat.jpg&quot; alt=&quot;一只猫&quot; width=&quot;300&quot;&gt;  这行里：  img：表示图片  src=&quot;cat.jpg&quot;：图片地址  alt=&quot;一只猫&quot;：替代说明文字  width=&quot;300&quot;：宽度   这些 src、alt、width 都是属性。  属性的基本写法1属性名=&quot;属性值&q...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2026/04/21/HTML%EF%BC%88%E4%BA%8C%EF%BC%89%E6%A0%87%E7%AD%BE/" title="HTML（二）标签">HTML（二）标签</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-04-21T02:00:00.000Z" title="发表于 2026-04-21 10:00:00">2026-04-21</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></span></div><div class="content">一、文本类标签这类标签是网页里最基础、最常用的。  1. h1 ~ h6：标题标签作用表示标题层级。 123&lt;h1&gt;前端学习路线&lt;/h1&gt;&lt;h2&gt;HTML&lt;/h2&gt;&lt;h3&gt;常用标签&lt;/h3&gt;  真实用法比如一篇文章页面： 1234567&lt;h1&gt;HTML 入门教程&lt;/h1&gt;&lt;h2&gt;什么是 HTML&lt;/h2&gt;&lt;p&gt;HTML 是一种标记语言。&lt;/p&gt;&lt;h2&gt;HTML 的基本结构&lt;/h2&gt;&lt;p&gt;一个 HTML 页面通常由 html、head、body 组成。&lt;/p&gt;  关键点 h1 一般是页面最核心的大标题  h2 是章节标题  h3 是小节标题  不要为了“字体大”就乱用标题标签   常见错误错误想法：“我想让字大一点，所以用 h1。” 这是不规范的。标题标签的重点是语义，不是样式。  2. p：段落作用表示一段正文。 1&lt;p&gt;HTML 是网页开发的基础。&lt;/p&gt;  真实用...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2026/04/20/HTML%EF%BC%88%E4%B8%80%EF%BC%89%E5%85%A5%E9%97%A8/" title="HTML（一）入门">HTML（一）入门</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-04-20T02:00:00.000Z" title="发表于 2026-04-20 10:00:00">2026-04-20</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></span></div><div class="content">可以把 HTML 理解成： 网页的骨架。 如果把一个网页比作房子：  HTML 负责房子的结构：哪里是门，哪里是窗，哪里是客厅  CSS 负责外观：颜色、大小、布局、动画  JavaScript 负责行为：点击按钮后发生什么   所以前端学习里，HTML 通常是第一步。  一、HTML 到底是什么HTML 全称是： HyperText Markup Language中文一般叫：超文本标记语言 这里面最重要的是“标记语言”。 它不是传统意义上“用来计算”的编程语言，而是用一些标签来告诉浏览器：  这是标题  这是段落  这是图片  这是链接  这是一个列表  这是一个表单输入框   浏览器看到这些标签，就会把它们渲染成网页。  二、先建立最基本的感觉先看一个最简单的 HTML 页面： 12345678910&lt;!DOCTYPE html&gt;&lt;html&gt;  &lt;head&gt;    &lt;title&gt;我的第一个网页&lt;/title&gt;  &lt;/head&gt;  &lt;body&gt;    &lt;h1&gt;你好，HTML&lt;/...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2026/04/01/%E5%93%88%E5%B8%8C%E8%A1%A8/" title="哈希算法（一）—— 哈希表">哈希算法（一）—— 哈希表</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-04-01T02:00:00.000Z" title="发表于 2026-04-01 10:00:00">2026-04-01</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></span></div><div class="content">哈希表（C++）这篇文章主要谈谈我最近学习哈希算法时的一些知识总结和个人思考。 1. 什么是哈希表哈希表（Hash Table）又称作散列表，是一种非常高效的数据结构，它通过键值对（Key-Value）的形式存储数据，并利用哈希函数将键映射到数组的某个位置，从而实现快速存取。 1.1 生活中的类比想象一个图书馆：  数组 ：像书架上的书按顺序排列，要找一本书需要从第一本开始翻 哈希表 ：像图书馆的索引系统，告诉你某本书的具体位置（比如”计算机类：3楼A区5架”），你可以直接走过去拿书  1.2 如何实现一个哈希表1.2.1 基本组成键(Key) → 哈希函数(Hash Function) → 数组下标(Index) → 值(Value)  键（Key） ：要查找的东西，比如学生的学号 哈希函数 ：将键转换为数组下标的函数 数组 ：存储实际数据的地方  1.2.2 哈希表的基本结构首先先从最简单的哈希表结构开始讲解 123456789// 最简单的哈希表结构struct HashItem &#123;    std::string key;    int value;    boo...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2026/03/22/Hexo%20Butterfly%20%E4%B8%BB%E9%A2%98%E5%9B%BE%E7%89%87%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" title="Hexo Butterfly 主题图片无法显示问题解决方案">Hexo Butterfly 主题图片无法显示问题解决方案</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-03-22T08:19:00.000Z" title="发表于 2026-03-22 16:19:00">2026-03-22</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%95%99%E7%A8%8B/">教程</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%95%99%E7%A8%8B/%E6%97%A5%E5%BF%97/">日志</a></span></div><div class="content">在此之前，我在网上试过很多方法，改配置什么的，但是都没用，然后问了一下AI，最后发现是配置文件中的一行指令的原因 Hexo Butterfly 主题图片无法显示问题完全解决方案📌 问题描述在本地 Typora 编辑器中图片可以正常显示，但部署到 Hexo 博客后，图片无法加载，显示为空白或裂图。 🔍 原因分析1. 本地绝对路径问题使用了 Typora 本地缓存路径： C:\Users\用户名\AppData\Roaming\Typora\typora-user-images\xxx.png ，这类路径仅在本地电脑有效，部署到服务器后无法访问。 2. 资源路径不匹配启用了 post_asset_folder: true 但图片没有放在与文章同名的资源文件夹中，Hexo 生成网站时不会自动复制资源到对应路径。 3. 路径格式错误 使用了错误的相对路径前缀（如 image-essay&#x2F;xxx.png ），不符合 Hexo 的资源查找规则。  ✅ 完整解决方案步骤1：确认基础配置在站点配置文件 _config.yml 中确保配置： 1post_asset_folder: t...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2026/03/17/%E7%BD%91%E7%AB%99%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97/" title="网站更新日志">网站更新日志</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-03-17T01:57:02.000Z" title="发表于 2026-03-17 09:57:02">2026-03-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%97%A5%E5%BF%97/">日志</a></span></div><div class="content">解决了icon不显示的问题不知道为什么，font awesome的图标一直没用，像CSDN，leetcode这样的的网站的图标会直接解析成一个小黑块 为了解决这个问题，我经过资料查找，最终选择了另一种替代方案，就是选择阿里的图标库 （还是国产用的舒服😄） 具体操作步骤访问iconfonticonfont 文档中还提到：txt 12由于是国外的图标网站，对于国内的一些网站 Icon 并不支持。如有需要，你可以引入其它的图标服务商。国内最出名的莫过于 iconfont ,功能很强大且图标内容很丰富的矢量图标库。很多 Font Awesome 不支持的图标都可以在这里找到。同时，iconfont 支持选择需要的图标生成css链接，减少不必要的CSS加载。  下面我就跟着 Butterfly 主题的 文档 来使用一下 iconfont。 1. 登录iconfont       2. 添加图标入库 找到想要使用的图标，添加入库。把鼠标移到图标上，会显示三个图标，依次是 入库、收藏 和 下载。  3. 图标添加到项目  如果没有项目，则新建一个项目 4. 生成css链接  网站会生成 cs...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2026/03/16/Hexo%20Butterfly%20%E4%B8%BB%E9%A2%98%E6%96%87%E7%AB%A0%E5%86%99%E4%BD%9C%E6%8C%87%E5%8D%97/" title="Hexo Butterfly 主题文章写作指南">Hexo Butterfly 主题文章写作指南</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-03-16T13:16:00.000Z" title="发表于 2026-03-16 21:16:00">2026-03-16</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%95%99%E7%A8%8B/">教程</a></span></div><div class="content">Hexo Butterfly 主题文章写作指南 本文详细介绍如何在 Hexo Butterfly 主题中编写文章的标题、标签、分类等元数据配置   📝 什么是 Front-matter在 Hexo 中，文章的标题、标签、分类等信息都写在文章开头的 Front-matter 部分。 Front-matter 位于 Markdown 文件的最开头，用 --- 包裹： 1234567891011---title: 文章标题date: 2024-03-16 12:00:00tags:  - 标签 1  - 标签 2categories:  - 分类---这里是文章正文内容...   🎯 基础配置项1️⃣ 必填项1234---title: 文章标题          # 文章标题（必填）date: 2024-03-16 12:00:00  # 创建时间（必填，Hexo 会自动生成）---  2️⃣ 核心配置项1234567891011121314151617181920212223242526---# 基本信息title: 我的学习笔记        # 文章标题date: 2024-...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2026/03/16/%E5%89%AF%E6%A0%87%E9%A2%98%E9%85%8D%E7%BD%AE%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" title="Hexo Butterfly 主题副标题不显示问题解决方案">Hexo Butterfly 主题副标题不显示问题解决方案</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-03-16T13:06:00.000Z" title="发表于 2026-03-16 21:06:00">2026-03-16</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%95%99%E7%A8%8B/">教程</a></span></div><div class="content">Hexo Butterfly 主题副标题不显示问题解决方案问题描述在 Hexo 根目录的 _config.yml 中配置了 subtitle，但网站没有显示副标题。 问题原因配置位置错误！  Butterfly 主题的副标题配置不在 Hexo 根目录的 _config.yml 中，而是在主题配置文件 themes/butterfly/_config.yml 中。 错误的配置方式 ❌在 Hexo 根目录 _config.yml 中配置： 12title: Aetik&#x27;s Blog🍉subtitle: 欢迎来到 Aetik 的博客🍉  # ← 这样配置不会生效！  正确的配置方式 ✅在主题配置文件 themes/butterfly/_config.yml 中配置： 123456subtitle:  enable: true  effect: true  source: false  sub:    - 欢迎来到 Aetik 的博客🍉   解决方案步骤 1：找到主题配置文件打开 themes/butterfly/_config.yml 文件 步骤 2：定位到 subti...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2026/03/16/%E7%AC%AC%E4%B8%80%E6%9D%A1%E5%8D%9A%E5%AE%A2%EF%BC%8C%E8%81%8A%E8%81%8A%E5%85%B3%E4%BA%8E%E7%94%A8hexo%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%BD%91%E7%AB%99%E7%9A%84%E4%B8%80%E4%BA%9B%E6%84%9F%E6%82%9F/" title="第一条博客，聊聊关于用hexo搭建自己的个人网站和一些感悟">第一条博客，聊聊关于用hexo搭建自己的个人网站和一些感悟</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-03-16T09:25:00.000Z" title="发表于 2026-03-16 17:25:00">2026-03-16</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%95%99%E7%A8%8B/">教程</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%95%99%E7%A8%8B/%E6%97%A5%E5%BF%97/">日志</a></span></div><div class="content">为什么要搭建个人Blog网站今天在B站刷到一个关于05年女生的计算机学习成果总结的视频，有点焦虑了，她目前在做全栈开发，也自己完成了许多开源项目，写了一篇又一篇的优秀博客，说实话看得我有点羡慕和敬佩，同样是大学生，我只不过比她晚一年入学，但感觉会的东西真是望尘莫及。  这里贴出视频链接，以后可以时不时来膜拜一下，激励自己：05后女生的实习作品集 然后我在逛评论区的时候，就发现有老哥说写博客之类的东西，赞叹这个大佬博客写的好，然后我就去搜关于博客的一些视频，发现许多计算机大佬都会有写博客的习惯，把我看得心痒痒了，因为我之前其实也一直很想记录和分享自己的学习日志，只不过不知道从何下手，也没有足够的动力去坚持这件事，所以一直搁置。这次正好借这个视频，我一鼓作气去从头开始学习如何写博客，从搭建网站开始一步步进行。 前置准备工具安装Node.jsHexo是基于Node.js的，所以首先需要安装Node.js。 下载Node.js 安装gitHexo的部署需要依赖git，所以需要安装git。 下载git 下载安装包后，根据自己的操作系统进行安装。安装完成后，管理员运行cmd，依次输入 123...</div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/headimgnew.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Aetik</div><div class="author-info-description">Wanna Be Compuer Science の 神 🍉</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">10</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/Aetik-yue" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:yanhaoruiruihaoyan@163.com" target="_blank" title="网易163邮箱"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://space.bilibili.com/517569450?spm_id_from=333.1007.0.0" target="_blank" title="Bilibili"><i class="iconfont icon-bilibili" style="color: #f05383;"></i></a><a class="social-icon" href="https://leetcode.cn/u/an-pei-la-xing-ren-d/" target="_blank" title="LeetCode"><i class="iconfont icon-leetcode2" style="color: #FFA116;"></i></a><a class="social-icon" href="https://blog.csdn.net/Aetik?spm=1000.2115.3001.5343" target="_blank" title="CSDN"><i class="iconfont icon-csdn" style="color: #DC3545;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/05/15/1%E3%80%81%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/" title="1、数据库系统概述">1、数据库系统概述</a><time datetime="2026-05-15T13:06:00.000Z" title="发表于 2026-05-15 21:06:00">2026-05-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/22/HTML%EF%BC%88%E4%B8%89%EF%BC%89%E5%B1%9E%E6%80%A7/" title="HTML（三）属性">HTML（三）属性</a><time datetime="2026-04-22T02:00:00.000Z" title="发表于 2026-04-22 10:00:00">2026-04-22</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/21/HTML%EF%BC%88%E4%BA%8C%EF%BC%89%E6%A0%87%E7%AD%BE/" title="HTML（二）标签">HTML（二）标签</a><time datetime="2026-04-21T02:00:00.000Z" title="发表于 2026-04-21 10:00:00">2026-04-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/20/HTML%EF%BC%88%E4%B8%80%EF%BC%89%E5%85%A5%E9%97%A8/" title="HTML（一）入门">HTML（一）入门</a><time datetime="2026-04-20T02:00:00.000Z" title="发表于 2026-04-20 10:00:00">2026-04-20</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/04/01/%E5%93%88%E5%B8%8C%E8%A1%A8/" title="哈希算法（一）—— 哈希表">哈希算法（一）—— 哈希表</a><time datetime="2026-04-01T02:00:00.000Z" title="发表于 2026-04-01 10:00:00">2026-04-01</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/"><span class="card-category-list-name">前端</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%95%99%E7%A8%8B/"><span class="card-category-list-name">教程</span><span class="card-category-list-count">4</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%95%99%E7%A8%8B/%E6%97%A5%E5%BF%97/"><span class="card-category-list-name">日志</span><span class="card-category-list-count">2</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%86%85%E6%A0%B8%E7%90%86%E8%AE%BA/"><span class="card-category-list-name">数据库系统内核理论</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%97%A5%E5%BF%97/"><span class="card-category-list-name">日志</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E7%AE%97%E6%B3%95/"><span class="card-category-list-name">算法</span><span class="card-category-list-count">1</span></a></li>
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/Miniob/" style="font-size: 1.1em; color: #999">Miniob</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 1.3em; color: #99a1ac">教程</a> <a href="/tags/Hexo/" style="font-size: 1.1em; color: #999">Hexo</a> <a href="/tags/%E9%9A%8F%E7%AC%94/" style="font-size: 1.1em; color: #999">随笔</a> <a href="/tags/%E5%86%85%E6%A0%B8/" style="font-size: 1.1em; color: #999">内核</a> <a href="/tags/C/" style="font-size: 1.1em; color: #999">C++</a> <a href="/tags/Bug/" style="font-size: 1.1em; color: #999">Bug</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 1.1em; color: #999">数据库</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.1em; color: #999">算法</a> <a href="/tags/HTML/" style="font-size: 1.3em; color: #99a1ac">HTML</a> <a href="/tags/hexo/" style="font-size: 1.5em; color: #99a9bf">hexo</a> <a href="/tags/%E5%93%88%E5%B8%8C%E8%A1%A8/" style="font-size: 1.1em; color: #999">哈希表</a></div></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>归档</span>
+      
+    </div>
+  
+    <ul class="card-archive-list">
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/05/">
+            <span class="card-archive-list-date">
+              五月 2026
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/04/">
+            <span class="card-archive-list-date">
+              四月 2026
+            </span>
+            <span class="card-archive-list-count">4</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/03/">
+            <span class="card-archive-list-date">
+              三月 2026
+            </span>
+            <span class="card-archive-list-count">5</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">10</div></div><div class="webinfo-item"><div class="item-name">本站总字数 :</div><div class="item-count">26.6k</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-05-17T06:40:03.414Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/01.jpg);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Aetik</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><div class="js-pjax"><script>window.typedJSFn = {
+  init: str => {
+    window.typed = new Typed('#subtitle', Object.assign({
+      strings: str,
+      startDelay: 300,
+      typeSpeed: 150,
+      loop: true,
+      backSpeed: 50,
+    }, null))
+  },
+  run: subtitleType => {
+    if (true) {
+      if (typeof Typed === 'function') {
+        subtitleType()
+      } else {
+        btf.getScript('https://cdn.jsdelivr.net/npm/typed.js@3.0.0/dist/typed.umd.min.js').then(subtitleType)
+      }
+    } else {
+      subtitleType()
+    }
+  },
+  processSubtitle: (content, extraContents = []) => {
+    if (true) {
+      const sub = ["欢迎来到 Aetik 的博客🍉","里面将会记录我的学习日志和日常生活"].slice()
+
+      if (extraContents.length > 0) {
+        sub.unshift(...extraContents)
+      }
+
+      if (typeof content === 'string') {
+        sub.unshift(content)
+      } else if (Array.isArray(content)) {
+        sub.unshift(...content)
+      }
+
+      sub.length > 0 && typedJSFn.init(sub)
+    } else {
+      document.getElementById('subtitle').textContent = typeof content === 'string' ? content :
+        (Array.isArray(content) && content.length > 0 ? content[0] : '')
+    }
+  }
+}
+btf.addGlobalFn('pjaxSendOnce', () => { typed.destroy() }, 'typedDestroy')
+</script><script>function subtitleType () {
+  typedJSFn.processSubtitle(["欢迎来到 Aetik 的博客🍉","里面将会记录我的学习日志和日常生活"])
+}
+typedJSFn.run(subtitleType)</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
