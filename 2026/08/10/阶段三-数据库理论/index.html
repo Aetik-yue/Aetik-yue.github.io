@@ -1,0 +1,742 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>阶段三：数据库理论（第 12~16 天） | Aetik's Blog🍉</title><meta name="author" content="Aetik"><meta name="copyright" content="Aetik"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="阶段三：数据库理论（第 12~16 天）  来源：数据库内核学习路线 阶段三 定位：学理论时对照本仓库代码看，效率翻倍。每个概念讲完立刻看对应代码，你会发现&quot;哦，原来书上说的就是这东西&quot;。 教材：CMU 15-445（Lecture 6~18）、《数据库系统概念》12~18 章、仓库 docs&#x2F;P0-P1修复记录.md（项目踩坑史，必读） 前置：阶段0-环境准备 阶段一-C++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="阶段三：数据库理论（第 12~16 天）">
+<meta property="og:url" content="https://aetik-yue.github.io/2026/08/10/%E9%98%B6%E6%AE%B5%E4%B8%89-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA/index.html">
+<meta property="og:site_name" content="Aetik&#39;s Blog🍉">
+<meta property="og:description" content="阶段三：数据库理论（第 12~16 天）  来源：数据库内核学习路线 阶段三 定位：学理论时对照本仓库代码看，效率翻倍。每个概念讲完立刻看对应代码，你会发现&quot;哦，原来书上说的就是这东西&quot;。 教材：CMU 15-445（Lecture 6~18）、《数据库系统概念》12~18 章、仓库 docs&#x2F;P0-P1修复记录.md（项目踩坑史，必读） 前置：阶段0-环境准备 阶段一-C++">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://aetik-yue.github.io/img/headimgnew.jpg">
+<meta property="article:published_time" content="2026-08-10T13:08:00.000Z">
+<meta property="article:modified_time" content="2026-08-10T15:01:50.323Z">
+<meta property="article:author" content="Aetik">
+<meta property="article:tag" content="B+树">
+<meta property="article:tag" content="MVCC">
+<meta property="article:tag" content="数据库内核">
+<meta property="article:tag" content="数据库理论">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://aetik-yue.github.io/img/headimgnew.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "阶段三：数据库理论（第 12~16 天）",
+  "url": "https://aetik-yue.github.io/2026/08/10/%E9%98%B6%E6%AE%B5%E4%B8%89-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA/",
+  "image": "https://aetik-yue.github.io/img/headimgnew.jpg",
+  "datePublished": "2026-08-10T13:08:00.000Z",
+  "dateModified": "2026-08-10T15:01:50.323Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Aetik",
+      "url": "https://Aetik-yue.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/logo.png"><link rel="canonical" href="https://aetik-yue.github.io/2026/08/10/%E9%98%B6%E6%AE%B5%E4%B8%89-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '阶段三：数据库理论（第 12~16 天）',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="//at.alicdn.com/t/c/font_5140733_jqrcp7pitm.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div class="bg-animation" id="web_bg" style="background-image: url(https://i.loli.net/2019/09/09/5oDRkWVKctx2b6A.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/headimgnew.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">25</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">43</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/01.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Aetik's Blog🍉</span></a><a class="nav-page-title" href="/"><span class="site-name">阶段三：数据库理论（第 12~16 天）</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">阶段三：数据库理论（第 12~16 天）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-08-10T13:08:00.000Z" title="发表于 2026-08-10 21:08:00">2026-08-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-08-10T15:01:50.323Z" title="更新于 2026-08-10 23:01:50">2026-08-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%86%85%E6%A0%B8/">数据库内核</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">6.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>23分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1>阶段三：数据库理论（第 12~16 天）</h1>
+<blockquote>
+<p>来源：数据库内核学习路线 阶段三<br>
+定位：<strong>学理论时对照本仓库代码看，效率翻倍</strong>。每个概念讲完立刻看对应代码，你会发现&quot;哦，原来书上说的就是这东西&quot;。<br>
+教材：CMU 15-445（Lecture 6~18）、《数据库系统概念》12~18 章、仓库 <code>docs/P0-P1修复记录.md</code>（项目踩坑史，必读）<br>
+前置：阶段0-环境准备 阶段一-C++基础 阶段二-C++并发</p>
+</blockquote>
+<hr>
+<h2 id="目录">目录</h2>
+<ol>
+<li>先看全貌：一条 SQL 从网络到磁盘的流水线</li>
+<li>磁盘与页管理</li>
+<li>缓冲池</li>
+<li>B+ 树索引</li>
+<li>火山模型（查询执行）</li>
+<li>查询优化</li>
+<li>事务与隔离级别</li>
+<li>MVCC：多版本并发控制</li>
+<li>SSI：可串行化快照隔离</li>
+<li>崩溃恢复：WAL 与 ARIES</li>
+<li>TPC-C 负载</li>
+<li>5 天每日安排</li>
+<li>自测清单（带答案）</li>
+</ol>
+<hr>
+<h2 id="一、先看全貌：一条-SQL-从网络到磁盘的流水线">一、先看全貌：一条 SQL 从网络到磁盘的流水线</h2>
+<p>想象一条 INSERT 语句从客户端到磁盘要经过几道工序：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">客户端 SQL</span><br><span class="line">   ↓ ① 网络层（wire_protocol）  把 SQL 按协议打包发过来</span><br><span class="line">   ↓ ② 解析器（parser）         把字符串变成 AST（语法树）——&quot;人话&quot;变&quot;结构&quot;</span><br><span class="line">   ↓ ③ 优化器（optimizer）      把 AST 变成执行计划——&quot;怎么做最划算&quot;</span><br><span class="line">   ↓ ④ 执行器（execution）      火山模型逐行处理——真正干活</span><br><span class="line">   ↓ ⑤ 事务管理（transaction）  并发时保证正确性——多个人同时操作不乱套</span><br><span class="line">   ↓ ⑥ 存储引擎（storage/record/index）  页、记录、B+树——数据怎么放</span><br><span class="line">   ↓ ⑦ 磁盘（disk_manager）     最终落到文件里</span><br></pre></td></tr></table></figure>
+<p><strong>对应仓库目录</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>层</th>
+<th>仓库目录</th>
+<th>核心文件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>网络/入口</td>
+<td><code>src/rmdb.cpp</code>, <code>src/wire_protocol.cpp</code></td>
+<td>服务器主循环、帧协议</td>
+</tr>
+<tr>
+<td>解析</td>
+<td><code>src/parser/</code></td>
+<td>SQL → AST</td>
+</tr>
+<tr>
+<td>优化</td>
+<td><code>src/optimizer/</code></td>
+<td>计划生成</td>
+</tr>
+<tr>
+<td>执行</td>
+<td><code>src/execution/</code></td>
+<td>各类 Executor</td>
+</tr>
+<tr>
+<td>事务</td>
+<td><code>src/transaction/</code></td>
+<td>transaction_manager.cpp</td>
+</tr>
+<tr>
+<td>存储</td>
+<td><code>src/storage/</code> <code>src/record/</code> <code>src/index/</code></td>
+<td>缓冲池、表文件、B+树</td>
+</tr>
+<tr>
+<td>恢复</td>
+<td><code>src/recovery/</code></td>
+<td>WAL 日志与崩溃恢复</td>
+</tr>
+</tbody>
+</table>
+<p><strong>这 7 层就是你决赛要维护的整个系统</strong>。阶段三的目标是：每层都知道&quot;是什么、为什么、代码在哪&quot;。</p>
+<hr>
+<h2 id="二、磁盘与页管理">二、磁盘与页管理</h2>
+<h3 id="2-1-为什么数据库不直接读写文件字节？">2.1 为什么数据库不直接读写文件字节？</h3>
+<p>假设一张表 100 万行。如果每次查一行都去磁盘读那一行的字节，磁盘寻道就慢死了。数据库的做法：<strong>按&quot;页&quot;为单位读写</strong>——一次读一整页（通常 4KB~8KB），页里塞很多行，用完留在内存缓存里（缓冲池，下一节）。</p>
+<h3 id="2-2-页（Page）是什么">2.2 页（Page）是什么</h3>
+<p><strong>定义</strong>：磁盘和内存之间传输的最小单位，固定大小（RMDB 是 4KB = <code>PAGE_SIZE</code>）。</p>
+<p>看仓库 <code>src/storage/page.h:66-68</code>：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="keyword">constexpr</span> <span class="type">size_t</span> OFFSET_PAGE_START = <span class="number">0</span>;</span><br><span class="line"><span class="type">static</span> <span class="keyword">constexpr</span> <span class="type">size_t</span> OFFSET_LSN = <span class="number">0</span>;        <span class="comment">// 页头前 4 字节：LSN（日志序列号）</span></span><br><span class="line"><span class="type">static</span> <span class="keyword">constexpr</span> <span class="type">size_t</span> OFFSET_PAGE_HDR = <span class="number">4</span>;   <span class="comment">// 第 4 字节起才是页自己的头部</span></span><br></pre></td></tr></table></figure>
+<p><strong>每页开头 4 字节存 LSN</strong>（这条修改对应日志的第几条），这是崩溃恢复时判断&quot;这页要不要重做&quot;的关键（阶段三第 10 节讲）。</p>
+<p><code>Page</code> 类（page.h:51）还有几个重要成员：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">PageId id_;          <span class="comment">// 这是哪一页（哪个文件 fd + 页号）</span></span><br><span class="line"><span class="type">char</span> data_[PAGE_SIZE];  <span class="comment">// 页的原始字节（所有数据都在这块缓冲区里）</span></span><br><span class="line"><span class="type">bool</span> is_dirty_;      <span class="comment">// 脏吗？（内存里被改过、还没写回磁盘）</span></span><br><span class="line"><span class="type">int</span> pin_count_;      <span class="comment">// 谁在用我？（&gt;0 时不许被淘汰）</span></span><br></pre></td></tr></table></figure>
+<p><strong>pin_count_ 是重点</strong>：页被某个线程&quot;借用&quot;时 pin 一下（+1），用完 unpin（-1）。pin &gt; 0 的页<strong>不允许被踢出内存</strong>——否则你正读着，页被换走了，指针就悬空了。</p>
+<h3 id="2-3-表文件长什么样（堆文件组织）">2.3 表文件长什么样（堆文件组织）</h3>
+<p>仓库 <code>src/record/rm_defs.h:33-45</code>，一张表 = 一个文件，文件头部 + 一页页数据：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">RmFileHdr</span> &#123;   <span class="comment">// 文件头（第 0 页）</span></span><br><span class="line">    <span class="type">int</span> record_size;           <span class="comment">// 每行定长多少字节</span></span><br><span class="line">    <span class="type">int</span> num_pages;             <span class="comment">// 一共多少页</span></span><br><span class="line">    <span class="type">int</span> num_records_per_page;  <span class="comment">// 每页能放几行</span></span><br><span class="line">    <span class="type">int</span> first_free_page_no;    <span class="comment">// 第一个有空位的页（空闲页链表头）</span></span><br><span class="line">    <span class="type">int</span> bitmap_size;           <span class="comment">// 位图大小（记录每页哪些槽被占了）</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">RmPageHdr</span> &#123;   <span class="comment">// 每个数据页的头部</span></span><br><span class="line">    <span class="type">int</span> next_free_page_no;  <span class="comment">// 下一个有空位的页（形成&quot;空闲页链表&quot;）</span></span><br><span class="line">    <span class="type">int</span> num_records;        <span class="comment">// 这页已有几行</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>插入一行怎么找位置</strong>：从 <code>first_free_page_no</code> 开始沿空闲页链表找 → 在页的 bitmap 里找一个空槽 → 把行数据 memcpy 进槽位。<strong>全部是定长槽位</strong>（<code>record_size</code> 固定），所以知道 Rid（页号+槽号）就能 O(1) 定位一行——这就是 <code>RmRecord</code>/<code>Rid</code> 的意义。</p>
+<h3 id="2-4-磁盘管理器">2.4 磁盘管理器</h3>
+<p><code>src/storage/disk_manager.h</code>，封装了裸的系统调用：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">write_page</span><span class="params">(<span class="type">int</span> fd, <span class="type">page_id_t</span> page_no, <span class="type">const</span> <span class="type">char</span> *offset, <span class="type">int</span> num_bytes)</span></span>;  <span class="comment">// 内部是 pwrite</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">read_page</span><span class="params">(<span class="type">int</span> fd, <span class="type">page_id_t</span> page_no, <span class="type">char</span> *offset, <span class="type">int</span> num_bytes)</span></span>;          <span class="comment">// 内部是 pread</span></span><br><span class="line"><span class="function"><span class="type">page_id_t</span> <span class="title">allocate_page</span><span class="params">(<span class="type">int</span> fd)</span></span>;  <span class="comment">// 在文件末尾分配一个新页号</span></span><br></pre></td></tr></table></figure>
+<p><strong>为什么用 pread/pwrite 而不是 read/write</strong>：pread/pwrite 自带&quot;文件偏移&quot;参数，线程安全——多个线程读写同一个文件描述符不用先 lseek 再读写（避免两步之间的竞态）。这就是阶段二说的&quot;锁外 I/O&quot;能成立的底层基础之一。</p>
+<hr>
+<h2 id="三、缓冲池">三、缓冲池</h2>
+<h3 id="3-1-问题：内存有限，数据无限">3.1 问题：内存有限，数据无限</h3>
+<p>表可能有 10 万页，内存只能装 1000 页。用户访问哪页就加载哪页，装不下了必须<strong>淘汰</strong>一页。淘汰谁？——<strong>LRU：最近最少使用</strong>。</p>
+<h3 id="3-2-缓冲池的四个角色">3.2 缓冲池的四个角色</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">page_table_（页表）: 页号 → 帧号（哪个槽位）</span><br><span class="line">pages_[]（帧数组）:  实际的内存页（Page 对象）</span><br><span class="line">replacer_（替换器）:  LRU 算法，决定淘汰谁</span><br><span class="line">disk_manager_:       缺页时从磁盘读、脏页时写回磁盘</span><br></pre></td></tr></table></figure>
+<p>访问流程（<code>fetch_page</code>）：</p>
+<ol>
+<li>查页表：页在内存吗？在 → pin_count_++，直接返回（快，微秒级）</li>
+<li>不在 → 问 replacer 要一个 victim 帧（LRU 选的）</li>
+<li>victim 是脏页？→ 先写回磁盘</li>
+<li>从磁盘读目标页进这个帧，pin_count_ = 1，返回</li>
+</ol>
+<h3 id="3-3-并发细节（你已经会了）">3.3 并发细节（你已经会了）</h3>
+<p>阶段二精读过的 <code>buffer_pool_manager.cpp</code>：</p>
+<ul>
+<li><code>latch_</code> 保护页表和帧状态</li>
+<li><strong>锁外 I/O</strong>：磁盘读写放锁外（临时拷贝数据带出临界区）</li>
+<li><code>loading_pages_</code> + <code>loading_done_</code>：同一页并发加载去重</li>
+</ul>
+<h3 id="3-4-淘汰策略">3.4 淘汰策略</h3>
+<p><code>src/replacer/lru_replacer.h</code>：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">victim</span><span class="params">(<span class="type">frame_id_t</span> *frame_id)</span></span>;  <span class="comment">// 选一个要淘汰的帧</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">pin</span><span class="params">(<span class="type">frame_id_t</span> frame_id)</span></span>;      <span class="comment">// 标记&quot;在用&quot;，不许淘汰</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">unpin</span><span class="params">(<span class="type">frame_id_t</span> frame_id)</span></span>;    <span class="comment">// 标记&quot;闲置&quot;，可以淘汰</span></span><br></pre></td></tr></table></figure>
+<p>内部实现就是一个&quot;最近使用链表&quot;：被访问的帧移到链表头，victim 从链表尾选。<strong>这就是阶段五练习 1 要改的地方</strong>（加统计日志）。</p>
+<hr>
+<h2 id="四、B-树索引">四、B+ 树索引</h2>
+<h3 id="4-1-为什么需要索引？为什么是-B-树不是哈希表？">4.1 为什么需要索引？为什么是 B+ 树不是哈希表？</h3>
+<ul>
+<li>没有索引：查一行要全表扫描（读所有页）——慢</li>
+<li>哈希表：单点查询 O(1)，但<strong>范围查询</strong>（<code>WHERE id BETWEEN 1 AND 100</code>）要全表扫——哈希键值无序</li>
+<li><strong>B+ 树</strong>：单点查询 O(log n)，<strong>范围查询也快</strong>（叶子节点之间有链表，顺着走就行）——TPC-C 里全是范围查询（比如查最近 20 个订单），所以用 B+ 树</li>
+</ul>
+<h3 id="4-2-B-树长什么样（30-秒直觉版）">4.2 B+ 树长什么样（30 秒直觉版）</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">        [30 | 60]</span><br><span class="line">       /    |     \</span><br><span class="line">[10|20]  [40|50]  [70|80|90]</span><br><span class="line">  ↓ 叶子节点之间有指针连成链表 ↓</span><br></pre></td></tr></table></figure>
+<p>规则（只记核心）：</p>
+<ol>
+<li>所有数据都在<strong>叶子节点</strong>（内部节点只存&quot;路标&quot;键值，帮你在树里找路）</li>
+<li>叶子节点按顺序串成链表 → 范围查询 = 找到起点顺着链表走</li>
+<li>节点满了 → <strong>分裂</strong>成两个；删到太空 → <strong>合并</strong>（或借一个）</li>
+<li>平衡的：从根到任何叶子的距离一样</li>
+</ol>
+<h3 id="4-3-仓库实现">4.3 仓库实现</h3>
+<p><code>src/index/ix_index_handle.h</code>：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum class</span> <span class="title class_">Operation</span> &#123; FIND = <span class="number">0</span>, INSERT, DELETE &#125;;   <span class="comment">// 三种操作</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">WriterPreferredSharedMutex</span> &#123; ... &#125;;  <span class="comment">// 写者优先的读写锁（B+树并发控制）</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">IxNodeHandle</span> &#123; ... &#125;;   <span class="comment">// 一个节点：键值数组 + 子节点指针数组 + 父指针</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">IxIndexHandle</span> &#123; ... &#125;;  <span class="comment">// 整棵树：根节点、插入/删除/查找、分裂合并</span></span><br></pre></td></tr></table></figure>
+<p><strong>亮点：<code>WriterPreferredSharedMutex</code></strong>——普通 shared_mutex 有个问题：读者源源不断时写者会饿死（一直等）。B+ 树里写操作（分裂/合并）很关键，所以用&quot;写者优先&quot;的读写锁。这是阶段二&quot;共享锁 vs 独占锁&quot;知识的实战升级。</p>
+<p><strong>决赛性能点</strong>：<code>aggregate_executor.h</code> 里有个 <code>count_range</code> 快速路径（第 518 行 <code>ih-&gt;count_range(begin, end)</code>）——<strong>用 B+ 树直接数区间内有多少键，根本不扫数据</strong>。这就是 <code>COUNT(*) WHERE id BETWEEN ...</code> 快的原因。</p>
+<hr>
+<h2 id="五、火山模型（查询执行）">五、火山模型（查询执行）</h2>
+<h3 id="5-1-是什么">5.1 是什么</h3>
+<p><strong>火山模型（Volcano Model）/ 迭代器模型</strong>：每个查询算子（扫描、过滤、连接、聚合）都是一个类，暴露统一的 <code>Next()</code> 接口——“给我下一行”。上层算子调用下层算子的 <code>Next()</code>，像流水线一样一行行&quot;泵&quot;上来。</p>
+<p><strong>为什么叫火山</strong>：数据像岩浆一样从底层算子（扫描）一层层喷到顶层（输出）。</p>
+<h3 id="5-2-仓库实现">5.2 仓库实现</h3>
+<p><code>src/execution/executor_abstract.h</code> 你已经读过：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">AbstractExecutor</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">beginTuple</span><span class="params">()</span> </span>&#123;&#125;;          <span class="comment">// 开始前准备</span></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">nextTuple</span><span class="params">()</span> </span>&#123;&#125;;           <span class="comment">// 内部推进</span></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">bool</span> <span class="title">is_end</span><span class="params">()</span> <span class="type">const</span> </span>&#123; <span class="keyword">return</span> <span class="literal">true</span>; &#125;;  <span class="comment">// 还有没有下一行</span></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> std::unique_ptr&lt;RmRecord&gt; <span class="title">Next</span><span class="params">()</span> </span>= <span class="number">0</span>;  <span class="comment">// 核心：拿下一行</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>每个算子一个类，都继承它并实现 <code>Next()</code>：</p>
+<table>
+<thead>
+<tr>
+<th>执行器</th>
+<th>文件</th>
+<th>干什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SeqScanExecutor</code></td>
+<td>executor_seq_scan.h</td>
+<td>全表扫描（+ MVCC 可见性过滤，决赛重点）</td>
+</tr>
+<tr>
+<td><code>IndexScanExecutor</code></td>
+<td>executor_index_scan.h</td>
+<td>走 B+ 树找行</td>
+</tr>
+<tr>
+<td><code>InsertExecutor</code></td>
+<td>executor_insert.h</td>
+<td>插入（冲突检查 + WAL + 索引维护）</td>
+</tr>
+<tr>
+<td><code>UpdateExecutor</code></td>
+<td>executor_update.h</td>
+<td>更新（含相对更新 relative，TPC-C 用）</td>
+</tr>
+<tr>
+<td><code>NestedLoopJoinExecutor</code></td>
+<td>executor_nestedloop_join.h</td>
+<td>两重循环连接</td>
+</tr>
+<tr>
+<td><code>AggregateExecutor</code></td>
+<td>aggregate_executor.h</td>
+<td>聚合（SUM/COUNT/AVG…）+ 快速路径</td>
+</tr>
+</tbody>
+</table>
+<h3 id="5-3-例：SELECT-FROM-t-WHERE-id-5-怎么跑">5.3 例：SELECT * FROM t WHERE id &gt; 5 怎么跑</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">顶层：输出（把行发给客户端）</span><br><span class="line">  ↑ Next()</span><br><span class="line">过滤算子（FilterExecutor）：id &gt; 5 才放行，否则继续要</span><br><span class="line">  ↑ Next()</span><br><span class="line">扫描算子（SeqScanExecutor）：一行一行从表文件读</span><br></pre></td></tr></table></figure>
+<p>每行数据从底往上&quot;泵&quot;：扫描器读一行 → 过滤器判断 → 通过就输出。<strong>整个查询只需要一张&quot;下一行&quot;的接口，这就是火山模型的可组合性</strong>——任意算子可以拼成任意查询计划。</p>
+<hr>
+<h2 id="六、查询优化">六、查询优化</h2>
+<p><strong>问题</strong>：<code>SELECT ... FROM a, b WHERE a.id = b.id AND a.x &gt; 10</code> 有无数种执行方式：</p>
+<ul>
+<li>先过滤 a 再连接？还是先连接再过滤？</li>
+<li>用全表扫描还是索引扫描？</li>
+<li>谁做外表谁做内表？</li>
+</ul>
+<p><strong>优化器</strong>（<code>src/optimizer/</code>）负责把 AST 变成&quot;最划算&quot;的执行计划：把过滤条件下推（先缩小数据量再做贵操作）、决定扫描方式（有索引走索引）、选择连接顺序。</p>
+<p><strong>阶段四/五你只需要知道</strong>：RMDB 的优化器相对简单（规则优化为主），决赛的快速路径在 <code>rmdb.cpp</code> 里<strong>手工拦截</strong>常见 SQL（比如快速 INSERT 解析、COUNT 快速路径），不走完整优化流程——这是理解 <code>rmdb.cpp</code> 快速路径的钥匙。</p>
+<hr>
+<h2 id="七、事务与隔离级别">七、事务与隔离级别</h2>
+<h3 id="7-1-事务（Transaction）">7.1 事务（Transaction）</h3>
+<p><strong>定义</strong>：一组 SQL 的集合，要么全部成功，要么全部不执行（原子性）。</p>
+<p>四大特性 <strong>ACID</strong>（背下来）：</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>含义</th>
+<th>违反的后果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>A</strong>tomicity 原子性</td>
+<td>全做或全不做</td>
+<td>转账扣了钱但没到账</td>
+</tr>
+<tr>
+<td><strong>C</strong>onsistency 一致性</td>
+<td>事务前后数据都合法</td>
+<td>余额变负数</td>
+</tr>
+<tr>
+<td><strong>I</strong>solation 隔离性</td>
+<td>并发事务互不干扰</td>
+<td>读到别人改了一半的数据</td>
+</tr>
+<tr>
+<td><strong>D</strong>urability 持久性</td>
+<td>提交了就永久保存</td>
+<td>崩溃后数据丢了</td>
+</tr>
+</tbody>
+</table>
+<h3 id="7-2-并发会出什么问题（三种异常）">7.2 并发会出什么问题（三种异常）</h3>
+<table>
+<thead>
+<tr>
+<th>异常</th>
+<th>场景</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>脏读</strong></td>
+<td>读到别人<strong>未提交</strong>的修改</td>
+<td>T1 改余额 100→90（没提交），T2 读到 90</td>
+</tr>
+<tr>
+<td><strong>不可重复读</strong></td>
+<td>同一事务两次读同一行，结果不同</td>
+<td>T2 先读到 100，T1 改成 90 提交，T2 再读变 90</td>
+</tr>
+<tr>
+<td><strong>幻读</strong></td>
+<td>两次查询返回的<strong>行数</strong>不同</td>
+<td>T2 第一次查到 5 行，T1 插入 1 行提交，T2 再查变 6 行</td>
+</tr>
+</tbody>
+</table>
+<h3 id="7-3-隔离级别（从松到严）">7.3 隔离级别（从松到严）</h3>
+<table>
+<thead>
+<tr>
+<th>级别</th>
+<th>防脏读</th>
+<th>防不可重复读</th>
+<th>防幻读</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>READ UNCOMMITTED</td>
+<td>✗</td>
+<td>✗</td>
+<td>✗</td>
+</tr>
+<tr>
+<td>READ COMMITTED</td>
+<td>✓</td>
+<td>✗</td>
+<td>✗</td>
+</tr>
+<tr>
+<td>REPEATABLE READ</td>
+<td>✓</td>
+<td>✓</td>
+<td>✗（MVCC 下通常也防）</td>
+</tr>
+<tr>
+<td><strong>SNAPSHOT ISOLATION（快照隔离）</strong></td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td><strong>SERIALIZABLE（可串行化）</strong></td>
+<td>✓</td>
+<td>✓</td>
+<td>✓（连写偏斜也防）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>决赛只用两个：SNAPSHOT_ISOLATION 和 SERIALIZABLE</strong>（看 transaction_manager.cpp:592-594 的判断）。</p>
+<p><strong>关键区分</strong>（自测常考）：</p>
+<ul>
+<li><strong>SI 防幻读但防不了写偏斜</strong>（见第 9 节）</li>
+<li><strong>SSI（Serializable Snapshot Isolation）</strong> = SI + 检测读写冲突边，把&quot;结果等价于串行执行&quot;保证到底</li>
+</ul>
+<h3 id="7-4-仓库实现：Transaction-对象">7.4 仓库实现：Transaction 对象</h3>
+<p><code>src/transaction/transaction.h:58</code>：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Transaction</span> &#123;</span><br><span class="line">    <span class="type">txn_id_t</span> txn_id_;        <span class="comment">// 事务 ID</span></span><br><span class="line">    <span class="type">timestamp_t</span> start_ts_;   <span class="comment">// 开始时间戳（快照点！决定了你能看到哪些版本）</span></span><br><span class="line">    IsolationLevel isolation_level_;  <span class="comment">// 隔离级别</span></span><br><span class="line">    TransactionState state_; <span class="comment">// GROWING / SHRINKING / COMMITTED / ABORTED</span></span><br><span class="line">    std::shared_ptr&lt;std::deque&lt;WriteRecord*&gt;&gt; write_set_;  <span class="comment">// 我写过的所有记录（写集合）</span></span><br><span class="line">    std::vector&lt;UndoLog&gt; undo_logs_;   <span class="comment">// 撤销日志（回滚用）</span></span><br><span class="line">    std::atomic&lt;<span class="type">timestamp_t</span>&gt; read_ts_;   <span class="comment">// 读到的最新时间戳（SSI 用）</span></span><br><span class="line">    std::atomic&lt;<span class="type">timestamp_t</span>&gt; commit_ts_; <span class="comment">// 提交时间戳</span></span><br><span class="line">    <span class="type">lsn_t</span> prev_lsn_;         <span class="comment">// 我上一条日志的 LSN（WAL 链）</span></span><br><span class="line">    std::mutex latch_;       <span class="comment">// 保护 write_set_（阶段二见过）</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>start_ts_ 是整个 MVCC 的基石</strong>：它既是&quot;快照点&quot;（我启动那一瞬间的数据库状态），又是&quot;写者身份&quot;（写写冲突时比大小）。</p>
+<hr>
+<h2 id="八、MVCC：多版本并发控制">八、MVCC：多版本并发控制</h2>
+<h3 id="8-1-核心思想：不互斥，改版本">8.1 核心思想：不互斥，改版本</h3>
+<p>传统的锁方案：读要锁、写要锁，读写互斥 → 并发度低。</p>
+<p><strong>MVCC（Multi-Version Concurrency Control）</strong>：同一行数据保留<strong>多个历史版本</strong>，读者读&quot;自己快照时刻的版本&quot;，写者写&quot;新版本&quot;，读写互不阻塞。</p>
+<p>比喻：维基百科词条。你打开页面（快照）后别人怎么改都不影响你正在看的版本；你刷新（新快照）才看到新版。</p>
+<h3 id="8-2-快照隔离（SI）三句话">8.2 快照隔离（SI）三句话</h3>
+<ol>
+<li><strong>读</strong>：只读自己 <code>start_ts</code> 之前已提交的版本（<code>GetVisibleRecord</code> 干的活，阶段二已精读）</li>
+<li><strong>写</strong>：写之前检查&quot;这行我启动之后有没有被别人写过&quot;（写写冲突）</li>
+<li><strong>冲突就中止</strong>：SI 下写写冲突不等待、不覆盖，<strong>后到者直接 ABORT</strong></li>
+</ol>
+<h3 id="8-3-写写冲突的判定（对应代码）">8.3 写写冲突的判定（对应代码）</h3>
+<p><code>WaitWriteTurn</code>（transaction_manager.cpp:620）+ <code>CheckWriteConflict</code>（:604）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">T2 想写某行：</span><br><span class="line">  1. 这行现在有活跃写者吗？（active_writers 里有别人吗）</span><br><span class="line">     → 有 → 等 200ms（writer_released 条件变量）</span><br><span class="line">     → 超时 → 冲突，ABORT</span><br><span class="line">  2. 这行在我启动后有提交过写入吗？（latest_write_ts &gt; 我的 start_ts？）</span><br><span class="line">     → 有 → 冲突，ABORT</span><br><span class="line">  3. 都没问题 → 登记 active_writers，写！</span><br></pre></td></tr></table></figure>
+<p><strong>为什么&quot;我启动后有提交&quot;也算冲突</strong>：快照隔离要求我基于&quot;启动时的旧数据&quot;做修改，但别人已经把它改成新值了——我改下去会覆盖别人的提交（丢失更新）。所以必须中止。</p>
+<h3 id="8-4-版本从哪里来">8.4 版本从哪里来</h3>
+<p>RMDB 不把版本存在行旁边，而是存在<strong>写历史</strong>里：</p>
+<ul>
+<li><code>write_history_</code> / <code>write_history_by_key_</code>：已提交事务的写入记录（AppliedWrite：旧值、新值、提交时间戳）</li>
+<li><code>write_shards[128]</code>：分片存储，每片一把锁（阶段二讲过）</li>
+<li><code>GetVisibleRecord</code> 的慢路径：<strong>沿着历史倒带</strong>，跳过所有比我新的提交，找到我该看的版本</li>
+</ul>
+<p><strong>删除怎么表示</strong>：<code>INSERT_TUPLE</code> 类型的写历史 + <code>is_deleted_</code> 标记。倒带时遇到&quot;我之后被插入&quot;的行 → 我眼里它不存在（返回 nullptr）。</p>
+<hr>
+<h2 id="九、SSI：可串行化快照隔离">九、SSI：可串行化快照隔离</h2>
+<h3 id="9-1-问题：SI-防不住写偏斜（Write-Skew）">9.1 问题：SI 防不住写偏斜（Write Skew）</h3>
+<p><strong>写偏斜经典例子（医生值班）</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">规则：值班表必须至少有一个人值班</span><br><span class="line">当前：A 和 B 都值班（两张表：a_on_duty = true, b_on_duty = true）</span><br><span class="line"></span><br><span class="line">事务 T1：查&quot;总共几个人值班&quot; = 2 → 我要请假 → 改 a_on_duty = false</span><br><span class="line">事务 T2：查&quot;总共几个人值班&quot; = 2 → 我要请假 → 改 b_on_duty = false</span><br><span class="line">（T1、T2 并发，都读到自己启动时的快照：2 人）</span><br><span class="line"></span><br><span class="line">结果：两个人都提交了 → 0 人值班！违反规则</span><br></pre></td></tr></table></figure>
+<p><strong>诡异之处</strong>：两个事务<strong>写的是不同的行</strong>（a 行和 b 行），所以 SI 的写写冲突检测<strong>根本发现不了</strong>！但结果却不等价于任何串行顺序（先 T1 后 T2 或反之都不会出现 0 人值班）。</p>
+<h3 id="9-2-SSI-的解法：盯住-读写冲突">9.2 SSI 的解法：盯住&quot;读写冲突&quot;</h3>
+<p><strong>关键观察</strong>：T1 读了 b 行（B 的值），T2 写了 b 行 → 存在 <strong>rw 边（T1 → T2）</strong>；T2 读了 a 行，T1 写了 a 行 → 存在 <strong>rw 边（T2 → T1）</strong>。两条 rw 边围成一个环 = <strong>危险结构（dangerous structure）</strong> = 可能写偏斜。</p>
+<p><strong>规则</strong>：只要检测到&quot;危险结构&quot;，立即中止其中一个事务。</p>
+<h3 id="9-3-对应代码（逐行看）">9.3 对应代码（逐行看）</h3>
+<p>transaction_manager.cpp:30：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">std::set&lt;std::pair&lt;<span class="type">txn_id_t</span>, <span class="type">txn_id_t</span>&gt;&gt; rw_edges_;  <span class="comment">// 所有 rw 边（谁→谁）</span></span><br></pre></td></tr></table></figure>
+<p>加边 + 检查（第 223~234 行）：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">AddRwEdgeAndCheckDangerous</span><span class="params">(<span class="type">txn_id_t</span> from, <span class="type">txn_id_t</span> to)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (from == to || !<span class="built_in">TxnIntervalsOverlap</span>(from, to)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;    <span class="comment">// 自己读自己写不算边；两个事务时间上没重叠也没关系</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">auto</span> inserted = TransactionManager::rw_edges_.<span class="built_in">insert</span>(&#123;from, to&#125;);  <span class="comment">// 加边</span></span><br><span class="line">    <span class="keyword">if</span> (!inserted.second) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;    <span class="comment">// 这条边早就存在，不用重复检查</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">HasDangerousStructureAfterEdge</span>(from, to);  <span class="comment">// 关键：新边会不会形成危险结构？</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>危险结构检查（第 209~222 行 <code>HasDangerousStructureAfterEdge</code>）：新边 <code>from → to</code> 加入后，如果存在另一条边 <code>x → from</code>（且时间重叠）或 <code>to → y</code>（且时间重叠）——<strong>两条 rw 边首尾相接形成&quot;读写交叉&quot;</strong>——就返回 true → 调用方立即中止事务。</p>
+<p><strong>时间重叠判断</strong>（<code>TxnIntervalsOverlap</code>，第 197~207 行）：两个事务的 [start_ts, commit_ts] 区间有交集才算互相&quot;看见&quot;。这避免了误杀：一个已提交很久的事务留下的边不影响后来的事务。</p>
+<p><strong>触发点</strong>：<code>RecordRead</code>（第 707 行，记录&quot;我读了哪行&quot;）→ 后来者写同一行时 <code>CheckSerializableWrite</code>（第 795 行）检查所有读了我这行的活跃事务 → 形成危险结构 → <strong>立即返回 true → 中止</strong>。</p>
+<h3 id="9-4-一句话总结-SSI">9.4 一句话总结 SSI</h3>
+<p><strong>SI + 检测 rw 边环（危险结构）+ 发现即中止 = SSI</strong>。代码里 <code>rw_edges_</code> 就是那个&quot;环检测器&quot;。</p>
+<hr>
+<h2 id="十、崩溃恢复：WAL-与-ARIES">十、崩溃恢复：WAL 与 ARIES</h2>
+<h3 id="10-1-问题：突然断电-被-kill-9，数据怎么办？">10.1 问题：突然断电/被 kill -9，数据怎么办？</h3>
+<p>内存里缓冲池有脏页（改了没写盘）。崩溃后：</p>
+<ul>
+<li>已提交的事务可能没写盘 → <strong>必须重做（redo）</strong>，否则提交的数据丢了</li>
+<li>未提交的事务可能已经写盘 → <strong>必须撤销（undo）</strong>，否则半成品数据落库</li>
+</ul>
+<p><strong>问题：恢复时怎么知道哪个页的哪个修改是哪个事务的？</strong>——答案：日志（Log）。</p>
+<h3 id="10-2-WAL-原则：先写日志，再改数据">10.2 WAL 原则：先写日志，再改数据</h3>
+<p><strong>WAL（Write-Ahead Logging）</strong> 铁律：<strong>任何数据页的修改落盘之前，对应的日志必须先落盘</strong>。</p>
+<p><strong>为什么必须这样</strong>（自测第 3 题答案）：</p>
+<ul>
+<li>崩溃后，日志是<strong>唯一可信</strong>的记录——因为所有修改都有日志在先</li>
+<li>如果先改数据页再写日志：崩溃后日志里<strong>没有</strong>这次修改的记录 → 恢复时无法判断页上的数据是&quot;已提交该留&quot;还是&quot;未提交该撤&quot; → 数据处于未知状态</li>
+<li>先写日志保证：<strong>页上有的修改，日志里一定有</strong> → 恢复时按日志重放即可，页状态完全由日志决定</li>
+</ul>
+<h3 id="10-3-日志长什么样（仓库代码）">10.3 日志长什么样（仓库代码）</h3>
+<p><code>src/recovery/log_manager.h:15-32</code>：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="title class_">LogType</span>: <span class="type">int</span> &#123;</span><br><span class="line">    UPDATE = <span class="number">0</span>, INSERT, DELETE, BEGIN, COMMIT, ABORT, CHECKPOINT</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">LogRecord</span> &#123;</span><br><span class="line">    LogType log_type_;   <span class="comment">// 什么操作</span></span><br><span class="line">    <span class="type">lsn_t</span> lsn_;          <span class="comment">// 日志序列号（第几条日志，全局递增）</span></span><br><span class="line">    <span class="type">uint32_t</span> log_tot_len_;  <span class="comment">// 这条日志总长度</span></span><br><span class="line">    <span class="type">txn_id_t</span> log_tid_;   <span class="comment">// 哪个事务</span></span><br><span class="line">    <span class="type">lsn_t</span> prev_lsn_;     <span class="comment">// 这个事务的上一条日志（事务日志链！）</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>prev_lsn_ 的意义</strong>：一个事务的多条日志串成链表，恢复时<strong>按事务为单位</strong>处理——从该事务最后一条日志沿 prev_lsn_ 往回走，就能撤销它做的所有修改。</p>
+<p>子类：<code>BeginLogRecord</code> / <code>CommitLogRecord</code> / <code>AbortLogRecord</code> / <code>InsertLogRecord</code> / <code>DeleteLogRecord</code> / <code>UpdateLogRecord</code>（各自多带数据：插入的行、删除的旧值、更新的新旧值）。</p>
+<p><strong>事务对象里的对应物</strong>（transaction.h:89-93）：<code>prev_lsn_</code> 和 <code>has_begin_logged_</code>——记录&quot;我上一条日志在哪&quot;和&quot;我写过 BEGIN 日志没&quot;。</p>
+<h3 id="10-4-ARIES-恢复三阶段（log-recovery-cpp）">10.4 ARIES 恢复三阶段（log_recovery.cpp）</h3>
+<p>恢复流程（<code>RecoveryManager</code>，<code>src/recovery/log_recovery.cpp</code>）：</p>
+<p><strong>① Analyze（分析）</strong>（第 110 行）——<strong>只读日志，不动数据</strong>：</p>
+<ul>
+<li>从哪开始读（checkpoint 记录的起点）</li>
+<li>找出哪些事务<strong>已提交</strong>（看到 COMMIT 日志）、哪些<strong>未完成</strong>（只有 BEGIN 没有 COMMIT）</li>
+<li>得出：该 redo 哪些（已提交的）、该 undo 哪些（未完成的）</li>
+<li>顺便重建缓冲池页表（哪些页在内存里）</li>
+</ul>
+<p><strong>② Redo（重做）</strong>（第 383 行，配合 <code>apply_redo</code> 第 336 行）——<strong>重放已提交事务的修改</strong>：</p>
+<ul>
+<li>从 analyze 给出的起点 LSN 开始，顺序扫日志</li>
+<li>对每条 UPDATE/INSERT/DELETE：如果属于已提交事务 → 重新应用</li>
+<li><strong>幂等性关键</strong>：日志和数据页都有 LSN。重放时若<strong>页的 LSN ≥ 日志的 LSN</strong> → 这次修改已经生效，跳过（防止重复应用）</li>
+<li>注释原文（第 385 行）：<em>“Redo committed changes in the physical order validated by analyze()”</em>——按 analyze 验证过的物理顺序重放</li>
+</ul>
+<p><strong>③ Undo（撤销）</strong>（第 395 行）——<strong>回滚未完成事务</strong>：</p>
+<ul>
+<li>从最新的未完成事务开始，沿每条日志的 prev_lsn_ 往回走</li>
+<li>把修改恢复原状（UPDATE 恢复旧值、INSERT 删掉、DELETE 插回）</li>
+<li>每 undo 一条写一条 <strong>CLR（Compensation Log Record）</strong>——即使 undo 中途再崩溃，恢复也能接着撤（这个细节知道即可）</li>
+</ul>
+<p><strong>Checkpoint（检查点）</strong>（第 485 行 <code>create_checkpoint</code>，第 30 行 <code>write_restart_file</code>）——<strong>恢复加速器</strong>：</p>
+<ul>
+<li>恢复要从第一条日志扫起太慢。定期把&quot;当前状态&quot;存成 checkpoint</li>
+<li>崩溃后从<strong>最近的 checkpoint</strong> 开始恢复，不用重放全部历史</li>
+<li>代价：checkpoint 本身要写盘（慢），所以不会太频繁</li>
+</ul>
+<h3 id="10-5-为什么-redo-的日志顺序不能乱">10.5 为什么 redo 的日志顺序不能乱</h3>
+<p>两个事务可能交替写同一页的不同区域。redo 必须<strong>按日志物理顺序</strong>（LSN 顺序）重放——这就是为什么 analyze 要&quot;验证物理顺序&quot;，也是为什么 <code>newest_committed_write_ts_</code> 的 release 发布顺序那么重要（阶段二）。</p>
+<hr>
+<h2 id="十一、TPC-C-负载">十一、TPC-C 负载</h2>
+<h3 id="11-1-什么是-TPC-C">11.1 什么是 TPC-C</h3>
+<p><strong>TPC-C</strong> 是一个模拟&quot;商品批发商&quot;的行业标准负载，测数据库在<strong>高并发交易</strong>下的性能和正确性。决赛就考它：<strong>32 个客户端并发跑五类事务，测正确性 + 延迟中位数</strong>。</p>
+<h3 id="11-2-五类事务（赛题第三章有精确-SQL，这里是语义）">11.2 五类事务（赛题第三章有精确 SQL，这里是语义）</h3>
+<table>
+<thead>
+<tr>
+<th>事务</th>
+<th>干什么</th>
+<th>读的表</th>
+<th>写的表</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>NewOrder 新订单</strong></td>
+<td>客户下单（一次 1~15 件商品）</td>
+<td>warehouse, district, customer, stock, item</td>
+<td>order, order_line, stock</td>
+<td><strong>最复杂</strong>；10% 概率包含无效商品 → <strong>整个事务回滚</strong>；更新库存数量</td>
+</tr>
+<tr>
+<td><strong>Payment 支付</strong></td>
+<td>客户付款</td>
+<td>warehouse, district</td>
+<td>customer（余额累加）</td>
+<td>更新 <code>c_balance</code>（<strong>相对更新</strong>：在旧值上加）</td>
+</tr>
+<tr>
+<td><strong>OrderStatus 订单状态</strong></td>
+<td>查客户最近订单的状态</td>
+<td>customer, order, order_line</td>
+<td>无</td>
+<td><strong>只读</strong></td>
+</tr>
+<tr>
+<td><strong>Delivery 送货</strong></td>
+<td>每个 district 送一单最旧的未交付订单</td>
+<td>order, order_line</td>
+<td>order, order_line, customer</td>
+<td>队列空则<strong>跳过</strong>（不报错）</td>
+</tr>
+<tr>
+<td><strong>StockLevel 库存水平</strong></td>
+<td>统计最近 20 个订单涉及的库存中低于阈值的商品数</td>
+<td>district, order_line, stock</td>
+<td>无</td>
+<td><strong>只读</strong> + 范围查询</td>
+</tr>
+</tbody>
+</table>
+<h3 id="11-3-和-RMDB-代码的对应">11.3 和 RMDB 代码的对应</h3>
+<ul>
+<li><strong>相对更新</strong>：<code>src/common/common.h:85-92</code> 的 <code>SetClause.relative</code>——<code>SET c_balance = c_balance + ?</code> 这种&quot;在旧值上累加&quot;的更新，TPC-C 的 <code>w_ytd</code>/<code>c_balance</code> 全是这个模式。这是决赛正确性重点（并发下累加不能丢）</li>
+<li><strong>Delivery 空队列跳过</strong>：<code>GetVisibleDeletedRecords</code>（transaction_manager.cpp:950）——扫描时把&quot;被删的行&quot;也考虑进来，配合事务语义跳过空队列</li>
+<li><strong>StockLevel 范围查询</strong>：B+ 树的 <code>count_range</code> 快速路径（aggregate_executor.h:518）就是为这类查询准备的</li>
+<li><strong>NewOrder 回滚</strong>：写集合（write_set_）+ undo_logs_（transaction.h:160）——事务中止时把写过的全部撤销</li>
+</ul>
+<h3 id="11-4-决赛要关心的性能指标">11.4 决赛要关心的性能指标</h3>
+<ul>
+<li><strong>NewOrder 延迟中位数</strong>：最主要指标</li>
+<li><strong>三类窗口</strong>（赛题要求的三段时间窗口）</li>
+<li><strong>32 客户端 warmup 不崩</strong>：并发稳定性</li>
+</ul>
+<hr>
+<h2 id="十二、5-天每日安排">十二、5 天每日安排</h2>
+<table>
+<thead>
+<tr>
+<th>天</th>
+<th>主题</th>
+<th>看视频</th>
+<th>对照代码</th>
+<th>产出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第 12 天</td>
+<td>全貌 + 磁盘/页/缓冲池</td>
+<td>Lecture 6~7</td>
+<td>page.h、disk_manager.h、buffer_pool_manager.cpp</td>
+<td>画出&quot;存储层&quot;框图</td>
+</tr>
+<tr>
+<td>第 13 天</td>
+<td>B+ 树</td>
+<td>Lecture 8~10</td>
+<td>ix_index_handle.h（IxNodeHandle/IxIndexHandle）</td>
+<td>手画一棵 B+ 树的分裂过程</td>
+</tr>
+<tr>
+<td>第 14 天</td>
+<td>火山模型 + 优化</td>
+<td>Lecture 11~14</td>
+<td>executor_abstract.h、各 executor</td>
+<td>画出&quot;一条 SELECT 的执行树&quot;</td>
+</tr>
+<tr>
+<td>第 15 天</td>
+<td>事务 + MVCC + SSI</td>
+<td>Lecture 16~17</td>
+<td>transaction_manager.cpp（GetVisibleRecord、WaitWriteTurn、AddRwEdgeAndCheckDangerous）</td>
+<td>写&quot;医生值班&quot;的 rw 边推演</td>
+</tr>
+<tr>
+<td>第 16 天</td>
+<td>WAL/ARIES + TPC-C</td>
+<td>Lecture 18</td>
+<td>log_manager.h、log_recovery.cpp（analyze/redo/undo）</td>
+<td>画出&quot;写数据→崩溃→恢复&quot;时间线</td>
+</tr>
+</tbody>
+</table>
+<p><strong>学习方法</strong>：每天 3~4 小时 = 1.5h 看视频（1.25 倍速）+ 1.5h 对照代码 + 0.5h 写 3~5 行笔记。<strong>视频只看 Lecture 6~18</strong>，Project 可选做（时间不够就跳过，RMDB 就是你的 Project）。</p>
+<p><strong>强烈建议先读</strong> <code>docs/P0-P1修复记录.md</code>——这个仓库踩过的坑（并发崩溃、恢复丢数据）就是你决赛要防的，读一遍顶看十遍理论。</p>
+<hr>
+<h2 id="十三、自测清单（带答案）">十三、自测清单（带答案）</h2>
+<h3 id="1-不看代码能画出-RMDB-架构图-✅">1. 不看代码能画出 RMDB 架构图 ✅</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">客户端 (rmdb_client / 压测脚本)</span><br><span class="line">   ↓ 帧协议 (wire_protocol: 握手→EXEC_STREAM→PREPARE_SET→EXEC_BATCH)</span><br><span class="line">rmdb.cpp 主循环 (快速路径拦截: 快速INSERT/COUNT + 标准路径)</span><br><span class="line">   ↓</span><br><span class="line">Portal / QlManager (分发: SELECT / DML / 多查询 / 命令)</span><br><span class="line">   ↓</span><br><span class="line">执行器树 (火山模型: SeqScan/IndexScan/Insert/Update/NestedLoopJoin/Aggregate)</span><br><span class="line">   ↓</span><br><span class="line">事务管理器 (MVCC/SSI: GetVisibleRecord/WaitWriteTurn/rw_edges_)</span><br><span class="line">   ↓</span><br><span class="line">存储 (缓冲池 BPM → 页 Page → 表文件 RmFileHandle / B+树 IxIndexHandle)</span><br><span class="line">   ↓</span><br><span class="line">DiskManager (pread/pwrite) → 磁盘文件 + WAL 日志 (LogManager)</span><br></pre></td></tr></table></figure>
+<h3 id="2-SI-下两个事务同时-UPDATE-同一行会发生什么-✅">2. SI 下两个事务同时 UPDATE 同一行会发生什么 ✅</h3>
+<p>答（对照 <code>WaitWriteTurn</code>）：</p>
+<ol>
+<li>T1 先到 → 登记 active_writers，开始写</li>
+<li>T2 想写同一行 → 发现活跃写者 T1 → 在 <code>writer_released</code> 条件变量上<strong>等最多 200ms</strong></li>
+<li>情况 A：T1 及时提交/中止 → T2 被唤醒 → 检查 <code>latest_write_ts</code>：T1 提交了 → 最新写时间戳 &gt; T2 的 start_ts → <strong>冲突，T2 中止（ABORT）</strong>；T1 中止了 → T2 可以写</li>
+<li>情况 B：200ms 没等到 → <strong>T2 超时中止</strong></li>
+<li>结论：<strong>SI 下写写冲突，后到者必然中止</strong>（除非先到者回滚）。这就是&quot;SI 功能模型要求同记录活跃写冲突以 TRANSACTION_ABORT 终止&quot;（代码注释原话）</li>
+</ol>
+<h3 id="3-解释-先写-WAL-再写数据页-为什么必要-✅">3. 解释&quot;先写 WAL 再写数据页&quot;为什么必要 ✅</h3>
+<p>答（见 10.2）：崩溃后日志是唯一可信来源。若先改数据页再写日志，崩溃后该修改&quot;没有日志记录&quot;，无法判断页上数据该留（已提交）还是该撤（未提交）——数据进入未知状态。<strong>WAL 保证：页上的任何修改，日志里必有对应记录</strong>，恢复时按日志重放（redo 已提交、undo 未提交）即可把数据库恢复到一致状态。这是 ARIES 能工作的前提。</p>
+<hr>
+<h2 id="完成标志">完成标志</h2>
+<ul>
+<li>[ ] 不看代码能画出 RMDB 架构图（上面第 1 题）</li>
+<li>[ ] 能解释 SI 下两个事务同时 UPDATE 同一行会发生什么</li>
+<li>[ ] 能解释&quot;先写 WAL 再写数据页&quot;为什么必要</li>
+<li>[ ] 能说出 B+ 树为什么适合范围查询（叶子链表）</li>
+<li>[ ] 能说出火山模型的 <code>Next()</code> 接口意义</li>
+<li>[ ] 能讲出写偏斜例子和 SSI 怎么防它（rw 边环 → 危险结构 → 中止）</li>
+<li>[ ] 能说出 ARIES 三阶段各自干什么</li>
+<li>[ ] 能说出 TPC-C 五类事务各读写哪些表</li>
+</ul>
+<p>完成后进入 阶段四-RMDB代码精读。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://Aetik-yue.github.io">Aetik</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://aetik-yue.github.io/2026/08/10/%E9%98%B6%E6%AE%B5%E4%B8%89-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA/">https://aetik-yue.github.io/2026/08/10/%E9%98%B6%E6%AE%B5%E4%B8%89-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://Aetik-yue.github.io" target="_blank">Aetik's Blog🍉</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%86%85%E6%A0%B8/">数据库内核</a><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA/">数据库理论</a><a class="post-meta__tags" href="/tags/MVCC/">MVCC</a><a class="post-meta__tags" href="/tags/B-%E6%A0%91/">B+树</a></div><div class="post-share"><div class="social-share" data-image="/img/headimgnew.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/08/10/%E9%98%B6%E6%AE%B5%E5%9B%9B-RMDB%E4%BB%A3%E7%A0%81%E7%B2%BE%E8%AF%BB/" title="阶段四：RMDB 代码精读（第 17~21 天）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">阶段四：RMDB 代码精读（第 17~21 天）</div></div><div class="info-2"><div class="info-item-1">阶段四：RMDB 代码精读（第 17~21 天）  来源：数据库内核学习路线 阶段四 目标：从&quot;能读代码&quot;到&quot;读得懂全项目&quot;。顺序 = 依赖顺序，从下往上读。 方法：每个文件读完后用自己的话写 3~5 行摘要，存到 docs/reading-notes.md 前置：阶段三-数据库理论（理论已经讲过，现在看实现）   一、总览：六层阅读路线 123456第 1 层 公共基础    defs.h / common.h / context.h第 2 层 存储        page.h / disk_manager / buffer_pool_manager / lru_replacer第 3 层 记录与索引  rm_file_handle / rm_scan / ix_index_handle / ix_scan第 4 层 事务与恢复  transaction_manager / transaction.h / log_manager / log_recovery第 5 层 执行        executor_abstract / seq_s...</div></div></div></a><a class="pagination-related" href="/2026/08/10/%E9%98%B6%E6%AE%B5%E4%BA%8C-C++%E5%B9%B6%E5%8F%91/" title="阶段二：C++ 并发（第 8~11 天）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">阶段二：C++ 并发（第 8~11 天）</div></div><div class="info-2"><div class="info-item-1">阶段二：C++ 并发（第 8~11 天）  来源：数据库内核学习路线 阶段二 这是决赛最关键的技术。RMDB 的并发正确性 100% 靠事务管理器里的锁和原子操作，48 个隔离测试全是并发场景。你之前的崩溃（SIGSEGV）就是并发 BUG。 仓库：C:\Users\yanha\Desktop\ob2026 前置要求：阶段一（阶段一-C++基础）的指针/类/STL 基础   目录  先建立直觉：并发是什么？ 核心概念（必须刻进脑子） 工具一：std::mutex 互斥锁 工具二：std::shared_mutex 读写锁 工具三：std::condition_variable 条件变量 工具四：std::atomic 与 memory_order 死锁与锁顺序 仓库代码精读（三件套） 4 天每日安排 练习（4 个，附讲解） 调试工具：ASAN / TSAN / gdb 自测清单（带答案） 完成标志   一、先建立直觉：并发是什么？ 1.1 一个生活比喻 想象你和一个室友共用一台冰箱。冰箱门上贴着一张纸，记录&quot;牛奶还剩几盒&quot;。  你看到纸上写 1 盒 你拿了一盒...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/08/10/%E9%98%B6%E6%AE%B5%E4%BA%8C-C++%E5%B9%B6%E5%8F%91/" title="阶段二：C++ 并发（第 8~11 天）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-10</div><div class="info-item-2">阶段二：C++ 并发（第 8~11 天）</div></div><div class="info-2"><div class="info-item-1">阶段二：C++ 并发（第 8~11 天）  来源：数据库内核学习路线 阶段二 这是决赛最关键的技术。RMDB 的并发正确性 100% 靠事务管理器里的锁和原子操作，48 个隔离测试全是并发场景。你之前的崩溃（SIGSEGV）就是并发 BUG。 仓库：C:\Users\yanha\Desktop\ob2026 前置要求：阶段一（阶段一-C++基础）的指针/类/STL 基础   目录  先建立直觉：并发是什么？ 核心概念（必须刻进脑子） 工具一：std::mutex 互斥锁 工具二：std::shared_mutex 读写锁 工具三：std::condition_variable 条件变量 工具四：std::atomic 与 memory_order 死锁与锁顺序 仓库代码精读（三件套） 4 天每日安排 练习（4 个，附讲解） 调试工具：ASAN / TSAN / gdb 自测清单（带答案） 完成标志   一、先建立直觉：并发是什么？ 1.1 一个生活比喻 想象你和一个室友共用一台冰箱。冰箱门上贴着一张纸，记录&quot;牛奶还剩几盒&quot;。  你看到纸上写 1 盒 你拿了一盒...</div></div></div></a><a class="pagination-related" href="/2026/08/10/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%86%85%E6%A0%B8%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/" title="数据库内核开发学习全流程"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-10</div><div class="info-item-2">数据库内核开发学习全流程</div></div><div class="info-2"><div class="info-item-1">数据库内核开发学习全流程  目标：零基础 → 能读懂并修改本仓库（RMDB）的内核代码，为 2026 数据库大赛决赛服务 本仓库：RMDB（C++17 自研关系型数据库，TPC-C 决赛项目）   0. 总览：两条路线 你的情况特殊：决赛就在眼前（时间紧），同时是零基础（底子薄）。所以分两条线：    路线 时间 目标 适合谁     A. 决赛冲刺线 2~3 周 能读懂 RMDB 代码、能改 BUG、能做小优化、会跑测试 马上要比赛   B. 系统学习线 3~6 个月 真正理解数据库内核，能独立设计实现 长期发展    建议组合：先走 A 线拿到&quot;能干活&quot;的能力参加决赛，赛后继续 B 线补地基。本文按 A 线为主编写，B 线作为延伸标注。 学习节奏：每天 3~4 小时，A 线 3 周。每阶段末尾有自测，过不了就回头补。  1. 环境准备（第 1 天，半天） 1.1 你需要什么    工具 用途 说明     WSL2 + Ubuntu 24.04 编译运行 RMDB 项目是 POSIX 代码，Windows 上无法编译   g++ 13 C++ 编译器 Ub...</div></div></div></a><a class="pagination-related" href="/2026/08/10/%E9%98%B6%E6%AE%B50-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/" title="阶段 0：环境准备（第 1 天，半天）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-10</div><div class="info-item-2">阶段 0：环境准备（第 1 天，半天）</div></div><div class="info-2"><div class="info-item-1">阶段 0：环境准备（第 1 天，半天）  来源：数据库内核学习路线 环境准备 目标：在你自己的 Windows 电脑上把 RMDB 编译跑起来，能跑测试、能启动数据库 仓库：C:\Users\yanha\Desktop\ob2026（你已经在 Windows 上有一份，但编译必须在 WSL 里）   一、为什么必须在 WSL 里编译？ RMDB 是 POSIX 代码（用 pread/pwrite、fsync、fork 等 Linux 系统调用），Windows 上无法编译。所以要在 Windows 里装一个 Linux 子系统（WSL2），在 Ubuntu 里编译运行。 你的情况：代码已经 clone 在 C:\Users\yanha\Desktop\ob2026。Windows 的 C:\ 盘在 WSL 里以 /mnt/c/ 挂载，所以 WSL 里访问它： 1ls /mnt/c/Users/yanha/Desktop/ob2026 两个选择：    方案 做法 优缺点     A. 直接在 /mnt/c 下编译 在 WSL 里 cd /mnt/c/Users/yanha/Des...</div></div></div></a><a class="pagination-related" href="/2026/08/10/%E9%98%B6%E6%AE%B5%E4%BA%94-%E5%8A%A8%E6%89%8B%E5%AE%9E%E8%B7%B5/" title="阶段五：动手实践（第 22~28 天）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-10</div><div class="info-item-2">阶段五：动手实践（第 22~28 天）</div></div><div class="info-2"><div class="info-item-1">阶段五：动手实践（第 22~28 天）  来源：数据库内核学习路线 阶段五 目标：从&quot;能读&quot;到&quot;能改&quot;——每个任务都要编译 + 测试通过才叫完成。 前置：阶段四-RMDB代码精读 黄金法则：改任何代码前先跑一遍基线测试（./build/bin/unit_test），改完再跑一遍，用 ASAN 版再跑一遍。   一、7 个练习任务（难度递增） 任务 1：给 LRU 替换策略加统计日志（★，热身） 涉及：src/replacer/lru_replacer.h / .cpp 目标：统计并打印缓冲池的命中率（hit rate）：fetch_page 时页在内存 = 命中；不在 = 未命中。加一个计数器，每 1000 次访问打印一次。 怎么做：  在 LRUReplacer 或 BufferPoolManager 里加两个成员：hits_、misses_（size_t） fetch_page 命中/未命中的分支各 ++ 每隔 N 次打印：hit rate = hits_ / (hits_ + misses_)  为什么做：热身 + 理解替换策略的调用...</div></div></div></a><a class="pagination-related" href="/2026/08/10/%E9%98%B6%E6%AE%B5%E4%B8%80-C++%E5%9F%BA%E7%A1%80/" title="阶段一：C++ 基础（第 2~7 天）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-10</div><div class="info-item-2">阶段一：C++ 基础（第 2~7 天）</div></div><div class="info-2"><div class="info-item-1">阶段一：C++ 基础（第 2~7 天）  来源：数据库内核学习路线 阶段一 定位：目标不是&quot;学会 C++&quot;，而是能读懂 RMDB 代码。按优先级学，遇到不会的再查 cppreference。 仓库：C:\Users\yanha\Desktop\ob2026   一、必学知识点（按优先级） ★★★ 1. 指针、引用、内存 是什么：裸指针 char*、new/delete[]、深拷贝、悬垂指针、栈/堆内存。 仓库落点：src/record/rm_defs.h:48 的 RmRecord 是整个存储层的数据载体——char* data 指向一块堆内存，size 记录长度，allocated_ 标记内存是否归它所有。这个类就是路线图 2.3 练习 1 的标准答案： 123456789struct RmRecord &#123;    char* data = nullptr;   // 裸指针，指向 new char[size]    int size = 0;    bool allocated_ = false; // 谁拥有这块内存？    RmRecord(c...</div></div></div></a><a class="pagination-related" href="/2026/08/10/%E9%98%B6%E6%AE%B5%E5%85%AD-%E5%86%B3%E8%B5%9B%E5%86%B2%E5%88%BA/" title="阶段六：决赛冲刺清单（最后 1 周）"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-08-10</div><div class="info-item-2">阶段六：决赛冲刺清单（最后 1 周）</div></div><div class="info-2"><div class="info-item-1">阶段六：决赛冲刺清单（最后 1 周）  来源：数据库内核学习路线 阶段六 定位：对照赛题逐项自查。赛题 PDF（C:\Users\yanha\Desktop\ob2026\2026年全国大学生计算机系统能力大赛数据库系统设计赛-决赛赛题.pdf）是唯一权威规范，本清单是它的&quot;复习提纲&quot;。 前置：阶段五-动手实践（压测脚本 + 协议脚本必须已有）   一、最后一周的时间分配（7 天）    天 重点 动作     第 1 天 正确性 五类事务逐类过；NewOrder 回滚、Delivery 空队列专项测   第 2 天 隔离 48 个历史测试全绿；SI/SSI 语义专项（专项 4 脚本）   第 3 天 聚合 + FLOAT COUNT(DISTINCT) 两种写法；SUM(FLOAT) 双精度；±0   第 4 天 协议 协议脚本逐字节比对；AUTO_ABORT、BATCH_RESULT 状态码   第 5 天 持久化 + 恢复 崩溃恢复全套：kill -9 → 重启 → 数据完整 → &lt;90s   第 6 天 性能 32 客户端 warmup 不崩；三...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/headimgnew.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Aetik</div><div class="author-info-description">Wanna Be Compuer Science の 神 🍉</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">25</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">43</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/Aetik-yue" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:yanhaoruiruihaoyan@163.com" target="_blank" title="网易163邮箱"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://space.bilibili.com/517569450?spm_id_from=333.1007.0.0" target="_blank" title="Bilibili"><i class="iconfont icon-bilibili" style="color: #f05383;"></i></a><a class="social-icon" href="https://leetcode.cn/u/an-pei-la-xing-ren-d/" target="_blank" title="LeetCode"><i class="iconfont icon-leetcode2" style="color: #FFA116;"></i></a><a class="social-icon" href="https://blog.csdn.net/Aetik?spm=1000.2115.3001.5343" target="_blank" title="CSDN"><i class="iconfont icon-csdn" style="color: #DC3545;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">阶段三：数据库理论（第 12~16 天）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95"><span class="toc-number">1.1.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%85%88%E7%9C%8B%E5%85%A8%E8%B2%8C%EF%BC%9A%E4%B8%80%E6%9D%A1-SQL-%E4%BB%8E%E7%BD%91%E7%BB%9C%E5%88%B0%E7%A3%81%E7%9B%98%E7%9A%84%E6%B5%81%E6%B0%B4%E7%BA%BF"><span class="toc-number">1.2.</span> <span class="toc-text">一、先看全貌：一条 SQL 从网络到磁盘的流水线</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E7%A3%81%E7%9B%98%E4%B8%8E%E9%A1%B5%E7%AE%A1%E7%90%86"><span class="toc-number">1.3.</span> <span class="toc-text">二、磁盘与页管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%8D%E7%9B%B4%E6%8E%A5%E8%AF%BB%E5%86%99%E6%96%87%E4%BB%B6%E5%AD%97%E8%8A%82%EF%BC%9F"><span class="toc-number">1.3.1.</span> <span class="toc-text">2.1 为什么数据库不直接读写文件字节？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E9%A1%B5%EF%BC%88Page%EF%BC%89%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.3.2.</span> <span class="toc-text">2.2 页（Page）是什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E8%A1%A8%E6%96%87%E4%BB%B6%E9%95%BF%E4%BB%80%E4%B9%88%E6%A0%B7%EF%BC%88%E5%A0%86%E6%96%87%E4%BB%B6%E7%BB%84%E7%BB%87%EF%BC%89"><span class="toc-number">1.3.3.</span> <span class="toc-text">2.3 表文件长什么样（堆文件组织）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86%E5%99%A8"><span class="toc-number">1.3.4.</span> <span class="toc-text">2.4 磁盘管理器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E7%BC%93%E5%86%B2%E6%B1%A0"><span class="toc-number">1.4.</span> <span class="toc-text">三、缓冲池</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E9%97%AE%E9%A2%98%EF%BC%9A%E5%86%85%E5%AD%98%E6%9C%89%E9%99%90%EF%BC%8C%E6%95%B0%E6%8D%AE%E6%97%A0%E9%99%90"><span class="toc-number">1.4.1.</span> <span class="toc-text">3.1 问题：内存有限，数据无限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E7%BC%93%E5%86%B2%E6%B1%A0%E7%9A%84%E5%9B%9B%E4%B8%AA%E8%A7%92%E8%89%B2"><span class="toc-number">1.4.2.</span> <span class="toc-text">3.2 缓冲池的四个角色</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E5%B9%B6%E5%8F%91%E7%BB%86%E8%8A%82%EF%BC%88%E4%BD%A0%E5%B7%B2%E7%BB%8F%E4%BC%9A%E4%BA%86%EF%BC%89"><span class="toc-number">1.4.3.</span> <span class="toc-text">3.3 并发细节（你已经会了）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5"><span class="toc-number">1.4.4.</span> <span class="toc-text">3.4 淘汰策略</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81B-%E6%A0%91%E7%B4%A2%E5%BC%95"><span class="toc-number">1.5.</span> <span class="toc-text">四、B+ 树索引</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E7%B4%A2%E5%BC%95%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF-B-%E6%A0%91%E4%B8%8D%E6%98%AF%E5%93%88%E5%B8%8C%E8%A1%A8%EF%BC%9F"><span class="toc-number">1.5.1.</span> <span class="toc-text">4.1 为什么需要索引？为什么是 B+ 树不是哈希表？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-B-%E6%A0%91%E9%95%BF%E4%BB%80%E4%B9%88%E6%A0%B7%EF%BC%8830-%E7%A7%92%E7%9B%B4%E8%A7%89%E7%89%88%EF%BC%89"><span class="toc-number">1.5.2.</span> <span class="toc-text">4.2 B+ 树长什么样（30 秒直觉版）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E4%BB%93%E5%BA%93%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.5.3.</span> <span class="toc-text">4.3 仓库实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E7%81%AB%E5%B1%B1%E6%A8%A1%E5%9E%8B%EF%BC%88%E6%9F%A5%E8%AF%A2%E6%89%A7%E8%A1%8C%EF%BC%89"><span class="toc-number">1.6.</span> <span class="toc-text">五、火山模型（查询执行）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.6.1.</span> <span class="toc-text">5.1 是什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-%E4%BB%93%E5%BA%93%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.6.2.</span> <span class="toc-text">5.2 仓库实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-%E4%BE%8B%EF%BC%9ASELECT-FROM-t-WHERE-id-5-%E6%80%8E%E4%B9%88%E8%B7%91"><span class="toc-number">1.6.3.</span> <span class="toc-text">5.3 例：SELECT * FROM t WHERE id &gt; 5 怎么跑</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96"><span class="toc-number">1.7.</span> <span class="toc-text">六、查询优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E4%BA%8B%E5%8A%A1%E4%B8%8E%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="toc-number">1.8.</span> <span class="toc-text">七、事务与隔离级别</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-%E4%BA%8B%E5%8A%A1%EF%BC%88Transaction%EF%BC%89"><span class="toc-number">1.8.1.</span> <span class="toc-text">7.1 事务（Transaction）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-%E5%B9%B6%E5%8F%91%E4%BC%9A%E5%87%BA%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98%EF%BC%88%E4%B8%89%E7%A7%8D%E5%BC%82%E5%B8%B8%EF%BC%89"><span class="toc-number">1.8.2.</span> <span class="toc-text">7.2 并发会出什么问题（三种异常）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%EF%BC%88%E4%BB%8E%E6%9D%BE%E5%88%B0%E4%B8%A5%EF%BC%89"><span class="toc-number">1.8.3.</span> <span class="toc-text">7.3 隔离级别（从松到严）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4-%E4%BB%93%E5%BA%93%E5%AE%9E%E7%8E%B0%EF%BC%9ATransaction-%E5%AF%B9%E8%B1%A1"><span class="toc-number">1.8.4.</span> <span class="toc-text">7.4 仓库实现：Transaction 对象</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AB%E3%80%81MVCC%EF%BC%9A%E5%A4%9A%E7%89%88%E6%9C%AC%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6"><span class="toc-number">1.9.</span> <span class="toc-text">八、MVCC：多版本并发控制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-1-%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3%EF%BC%9A%E4%B8%8D%E4%BA%92%E6%96%A5%EF%BC%8C%E6%94%B9%E7%89%88%E6%9C%AC"><span class="toc-number">1.9.1.</span> <span class="toc-text">8.1 核心思想：不互斥，改版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-2-%E5%BF%AB%E7%85%A7%E9%9A%94%E7%A6%BB%EF%BC%88SI%EF%BC%89%E4%B8%89%E5%8F%A5%E8%AF%9D"><span class="toc-number">1.9.2.</span> <span class="toc-text">8.2 快照隔离（SI）三句话</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-3-%E5%86%99%E5%86%99%E5%86%B2%E7%AA%81%E7%9A%84%E5%88%A4%E5%AE%9A%EF%BC%88%E5%AF%B9%E5%BA%94%E4%BB%A3%E7%A0%81%EF%BC%89"><span class="toc-number">1.9.3.</span> <span class="toc-text">8.3 写写冲突的判定（对应代码）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-4-%E7%89%88%E6%9C%AC%E4%BB%8E%E5%93%AA%E9%87%8C%E6%9D%A5"><span class="toc-number">1.9.4.</span> <span class="toc-text">8.4 版本从哪里来</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%9D%E3%80%81SSI%EF%BC%9A%E5%8F%AF%E4%B8%B2%E8%A1%8C%E5%8C%96%E5%BF%AB%E7%85%A7%E9%9A%94%E7%A6%BB"><span class="toc-number">1.10.</span> <span class="toc-text">九、SSI：可串行化快照隔离</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#9-1-%E9%97%AE%E9%A2%98%EF%BC%9ASI-%E9%98%B2%E4%B8%8D%E4%BD%8F%E5%86%99%E5%81%8F%E6%96%9C%EF%BC%88Write-Skew%EF%BC%89"><span class="toc-number">1.10.1.</span> <span class="toc-text">9.1 问题：SI 防不住写偏斜（Write Skew）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-2-SSI-%E7%9A%84%E8%A7%A3%E6%B3%95%EF%BC%9A%E7%9B%AF%E4%BD%8F-%E8%AF%BB%E5%86%99%E5%86%B2%E7%AA%81"><span class="toc-number">1.10.2.</span> <span class="toc-text">9.2 SSI 的解法：盯住&quot;读写冲突&quot;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-3-%E5%AF%B9%E5%BA%94%E4%BB%A3%E7%A0%81%EF%BC%88%E9%80%90%E8%A1%8C%E7%9C%8B%EF%BC%89"><span class="toc-number">1.10.3.</span> <span class="toc-text">9.3 对应代码（逐行看）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-4-%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%80%BB%E7%BB%93-SSI"><span class="toc-number">1.10.4.</span> <span class="toc-text">9.4 一句话总结 SSI</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E3%80%81%E5%B4%A9%E6%BA%83%E6%81%A2%E5%A4%8D%EF%BC%9AWAL-%E4%B8%8E-ARIES"><span class="toc-number">1.11.</span> <span class="toc-text">十、崩溃恢复：WAL 与 ARIES</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#10-1-%E9%97%AE%E9%A2%98%EF%BC%9A%E7%AA%81%E7%84%B6%E6%96%AD%E7%94%B5-%E8%A2%AB-kill-9%EF%BC%8C%E6%95%B0%E6%8D%AE%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9F"><span class="toc-number">1.11.1.</span> <span class="toc-text">10.1 问题：突然断电&#x2F;被 kill -9，数据怎么办？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-2-WAL-%E5%8E%9F%E5%88%99%EF%BC%9A%E5%85%88%E5%86%99%E6%97%A5%E5%BF%97%EF%BC%8C%E5%86%8D%E6%94%B9%E6%95%B0%E6%8D%AE"><span class="toc-number">1.11.2.</span> <span class="toc-text">10.2 WAL 原则：先写日志，再改数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-3-%E6%97%A5%E5%BF%97%E9%95%BF%E4%BB%80%E4%B9%88%E6%A0%B7%EF%BC%88%E4%BB%93%E5%BA%93%E4%BB%A3%E7%A0%81%EF%BC%89"><span class="toc-number">1.11.3.</span> <span class="toc-text">10.3 日志长什么样（仓库代码）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-4-ARIES-%E6%81%A2%E5%A4%8D%E4%B8%89%E9%98%B6%E6%AE%B5%EF%BC%88log-recovery-cpp%EF%BC%89"><span class="toc-number">1.11.4.</span> <span class="toc-text">10.4 ARIES 恢复三阶段（log_recovery.cpp）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-5-%E4%B8%BA%E4%BB%80%E4%B9%88-redo-%E7%9A%84%E6%97%A5%E5%BF%97%E9%A1%BA%E5%BA%8F%E4%B8%8D%E8%83%BD%E4%B9%B1"><span class="toc-number">1.11.5.</span> <span class="toc-text">10.5 为什么 redo 的日志顺序不能乱</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E4%B8%80%E3%80%81TPC-C-%E8%B4%9F%E8%BD%BD"><span class="toc-number">1.12.</span> <span class="toc-text">十一、TPC-C 负载</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#11-1-%E4%BB%80%E4%B9%88%E6%98%AF-TPC-C"><span class="toc-number">1.12.1.</span> <span class="toc-text">11.1 什么是 TPC-C</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-2-%E4%BA%94%E7%B1%BB%E4%BA%8B%E5%8A%A1%EF%BC%88%E8%B5%9B%E9%A2%98%E7%AC%AC%E4%B8%89%E7%AB%A0%E6%9C%89%E7%B2%BE%E7%A1%AE-SQL%EF%BC%8C%E8%BF%99%E9%87%8C%E6%98%AF%E8%AF%AD%E4%B9%89%EF%BC%89"><span class="toc-number">1.12.2.</span> <span class="toc-text">11.2 五类事务（赛题第三章有精确 SQL，这里是语义）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-3-%E5%92%8C-RMDB-%E4%BB%A3%E7%A0%81%E7%9A%84%E5%AF%B9%E5%BA%94"><span class="toc-number">1.12.3.</span> <span class="toc-text">11.3 和 RMDB 代码的对应</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-4-%E5%86%B3%E8%B5%9B%E8%A6%81%E5%85%B3%E5%BF%83%E7%9A%84%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87"><span class="toc-number">1.12.4.</span> <span class="toc-text">11.4 决赛要关心的性能指标</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E4%BA%8C%E3%80%815-%E5%A4%A9%E6%AF%8F%E6%97%A5%E5%AE%89%E6%8E%92"><span class="toc-number">1.13.</span> <span class="toc-text">十二、5 天每日安排</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E4%B8%89%E3%80%81%E8%87%AA%E6%B5%8B%E6%B8%85%E5%8D%95%EF%BC%88%E5%B8%A6%E7%AD%94%E6%A1%88%EF%BC%89"><span class="toc-number">1.14.</span> <span class="toc-text">十三、自测清单（带答案）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%B8%8D%E7%9C%8B%E4%BB%A3%E7%A0%81%E8%83%BD%E7%94%BB%E5%87%BA-RMDB-%E6%9E%B6%E6%9E%84%E5%9B%BE-%E2%9C%85"><span class="toc-number">1.14.1.</span> <span class="toc-text">1. 不看代码能画出 RMDB 架构图 ✅</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-SI-%E4%B8%8B%E4%B8%A4%E4%B8%AA%E4%BA%8B%E5%8A%A1%E5%90%8C%E6%97%B6-UPDATE-%E5%90%8C%E4%B8%80%E8%A1%8C%E4%BC%9A%E5%8F%91%E7%94%9F%E4%BB%80%E4%B9%88-%E2%9C%85"><span class="toc-number">1.14.2.</span> <span class="toc-text">2. SI 下两个事务同时 UPDATE 同一行会发生什么 ✅</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%A7%A3%E9%87%8A-%E5%85%88%E5%86%99-WAL-%E5%86%8D%E5%86%99%E6%95%B0%E6%8D%AE%E9%A1%B5-%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BF%85%E8%A6%81-%E2%9C%85"><span class="toc-number">1.14.3.</span> <span class="toc-text">3. 解释&quot;先写 WAL 再写数据页&quot;为什么必要 ✅</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%8C%E6%88%90%E6%A0%87%E5%BF%97"><span class="toc-number">1.15.</span> <span class="toc-text">完成标志</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/08/10/%E9%98%B6%E6%AE%B5%E5%85%AD-%E5%86%B3%E8%B5%9B%E5%86%B2%E5%88%BA/" title="阶段六：决赛冲刺清单（最后 1 周）">阶段六：决赛冲刺清单（最后 1 周）</a><time datetime="2026-08-10T13:14:00.000Z" title="发表于 2026-08-10 21:14:00">2026-08-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/08/10/%E9%98%B6%E6%AE%B5%E4%BA%94-%E5%8A%A8%E6%89%8B%E5%AE%9E%E8%B7%B5/" title="阶段五：动手实践（第 22~28 天）">阶段五：动手实践（第 22~28 天）</a><time datetime="2026-08-10T13:12:00.000Z" title="发表于 2026-08-10 21:12:00">2026-08-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/08/10/%E9%98%B6%E6%AE%B5%E5%9B%9B-RMDB%E4%BB%A3%E7%A0%81%E7%B2%BE%E8%AF%BB/" title="阶段四：RMDB 代码精读（第 17~21 天）">阶段四：RMDB 代码精读（第 17~21 天）</a><time datetime="2026-08-10T13:10:00.000Z" title="发表于 2026-08-10 21:10:00">2026-08-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/08/10/%E9%98%B6%E6%AE%B5%E4%B8%89-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA/" title="阶段三：数据库理论（第 12~16 天）">阶段三：数据库理论（第 12~16 天）</a><time datetime="2026-08-10T13:08:00.000Z" title="发表于 2026-08-10 21:08:00">2026-08-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/08/10/%E9%98%B6%E6%AE%B5%E4%BA%8C-C++%E5%B9%B6%E5%8F%91/" title="阶段二：C++ 并发（第 8~11 天）">阶段二：C++ 并发（第 8~11 天）</a><time datetime="2026-08-10T13:06:00.000Z" title="发表于 2026-08-10 21:06:00">2026-08-10</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/01.jpg);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Aetik</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><div class="js-pjax"><script>(async () => {
+  const showKatex = () => {
+    document.querySelectorAll('#article-container .katex').forEach(el => el.classList.add('katex-show'))
+  }
+
+  if (!window.katex_js_css) {
+    window.katex_js_css = true
+    await btf.getCSS('https://cdn.jsdelivr.net/npm/katex@0.16.28/dist/katex.min.css')
+    if (false) {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/katex@0.16.28/dist/contrib/copy-tex.min.js')
+    }
+  }
+
+  showKatex()
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
