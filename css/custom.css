@@ -1,0 +1,31 @@
+/**
+ * Aetik's Blog 自定义样式（西瓜粉主题）
+ * 通过 _config.butterfly.yml 的 inject.head 引入，加载在主题样式之后
+ */
+
+/* 导航栏毛玻璃增强（主题默认 blur(7px)，这里加深并提升饱和度） */
+#page-header.nav-fixed #nav,
+#page-header.not-top-img #nav {
+  -webkit-backdrop-filter: blur(12px) saturate(1.5);
+  backdrop-filter: blur(12px) saturate(1.5);
+}
+
+/* 首页文章卡片：hover 上浮 + 西瓜粉投影 */
+#recent-posts .recent-post-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 3px 8px 6px rgba(244, 116, 116, .09), 0 10px 24px 2px rgba(244, 116, 116, .14);
+}
+
+/* 暗色模式下的投影 */
+[data-theme='dark'] #recent-posts .recent-post-item:hover {
+  box-shadow: 0 3px 8px 6px rgba(0, 0, 0, .35);
+}
+
+/* 尊重系统「减少动态效果」设置 */
+@media (prefers-reduced-motion: reduce) {
+  #recent-posts .recent-post-item,
+  #recent-posts .recent-post-item:hover {
+    transition: none;
+    transform: none;
+  }
+}
