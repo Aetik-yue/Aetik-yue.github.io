@@ -5,7 +5,7 @@
 <meta property="og:site_name" content="Aetik&#39;s Blog🍉">
 <meta property="og:description" content="Chapter 4 处理器 — 知识点全面总结  本文档总结了计算机组成原理第4章《处理器》的全部知识点，使用通俗易懂的语言讲解，并附带经典例题帮助理解巩固。   目录  处理器的基本概念 数据通路（Datapath） 控制单元（Control Unit） 单周期处理器 流水线（Pipeline）概述 流水线数据通路 流水线冒险（Hazards）  7.1 结构冒险 7.2 数据冒险 7.3 控制">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://aetik-yue.github.io/img/covers/mountain-night.svg">
+<meta property="og:image" content="https://aetik-yue.github.io/img/covers/lake.svg">
 <meta property="article:published_time" content="2026-06-22T01:00:00.000Z">
 <meta property="article:modified_time" content="2026-06-22T09:09:01.237Z">
 <meta property="article:author" content="Aetik">
@@ -16,12 +16,12 @@
 <meta property="article:tag" content="笔记">
 <meta property="article:tag" content="计算机组成原理">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://aetik-yue.github.io/img/covers/mountain-night.svg"><script type="application/ld+json">{
+<meta name="twitter:image" content="https://aetik-yue.github.io/img/covers/lake.svg"><script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": "Chapter 4 处理器 — 知识点全面总结",
   "url": "https://aetik-yue.github.io/2026/06/22/Chapter%204%20%E5%A4%84%E7%90%86%E5%99%A8%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/",
-  "image": "https://aetik-yue.github.io/img/covers/mountain-night.svg",
+  "image": "https://aetik-yue.github.io/img/covers/lake.svg",
   "datePublished": "2026-06-22T01:00:00.000Z",
   "dateModified": "2026-06-22T09:09:01.237Z",
   "author": [
@@ -194,12 +194,12 @@
     btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
     btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
   }
-})()</script><div class="bg-animation" id="web_bg" style="background-image: url(/img/pixel-landscape.svg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/headimgnew.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/ loading='lazy'></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">25</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">43</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-thumbs-up"></i><span> 推荐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/img/covers/mountain-night.svg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Aetik's Blog🍉</span></a><a class="nav-page-title" href="/"><span class="site-name">Chapter 4 处理器 — 知识点全面总结</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-thumbs-up"></i><span> 推荐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Chapter 4 处理器 — 知识点全面总结</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-06-22T01:00:00.000Z" title="发表于 2026-06-22 09:00:00">2026-06-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-06-22T09:09:01.237Z" title="更新于 2026-06-22 17:09:01">2026-06-22</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">计算机组成原理</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E7%AC%94%E8%AE%B0/">笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">6.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>21分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:180,&quot;messagePrev&quot;:&quot;这篇文章上次更新距今已有&quot;,&quot;messageNext&quot;:&quot;天，部分内容可能已经过时，请注意甄别。&quot;,&quot;postUpdate&quot;:&quot;2026-06-22 17:09:01&quot;}" hidden></div><h1>Chapter 4 处理器 — 知识点全面总结</h1>
+})()</script><div class="bg-animation" id="web_bg" style="background-image: url(/img/pixel-landscape.svg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/headimgnew.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/ loading='lazy'></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">25</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">43</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-thumbs-up"></i><span> 推荐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/img/covers/lake.svg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Aetik's Blog🍉</span></a><a class="nav-page-title" href="/"><span class="site-name">Chapter 4 处理器 — 知识点全面总结</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-thumbs-up"></i><span> 推荐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Chapter 4 处理器 — 知识点全面总结</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-06-22T01:00:00.000Z" title="发表于 2026-06-22 09:00:00">2026-06-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-06-22T09:09:01.237Z" title="更新于 2026-06-22 17:09:01">2026-06-22</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">计算机组成原理</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E7%AC%94%E8%AE%B0/">笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">6.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>21分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><div id="post-outdate-notice" data="{&quot;limitDay&quot;:180,&quot;messagePrev&quot;:&quot;这篇文章上次更新距今已有&quot;,&quot;messageNext&quot;:&quot;天，部分内容可能已经过时，请注意甄别。&quot;,&quot;postUpdate&quot;:&quot;2026-06-22 17:09:01&quot;}" hidden></div><h1><span id="chapter-4-处理器-知识点全面总结">Chapter 4 处理器 — 知识点全面总结</span></h1>
 <blockquote>
 <p>本文档总结了计算机组成原理第4章《处理器》的全部知识点，使用通俗易懂的语言讲解，并附带经典例题帮助理解巩固。</p>
 </blockquote>
 <hr>
-<h2 id="目录">目录</h2>
+<h2><span id="目录">目录</span></h2>
 <ol>
 <li><a href="#1-%E5%A4%84%E7%90%86%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5">处理器的基本概念</a></li>
 <li><a href="#2-%E6%95%B0%E6%8D%AE%E9%80%9A%E8%B7%AFdatapath">数据通路（Datapath）</a></li>
@@ -223,13 +223,13 @@
 <li><a href="#14-%E7%8E%B0%E4%BB%A3%E5%A4%84%E7%90%86%E5%99%A8%E6%8A%80%E6%9C%AF">现代处理器技术</a></li>
 </ol>
 <hr>
-<h2 id="1-处理器的基本概念">1. 处理器的基本概念</h2>
-<h3 id="知识点讲解">知识点讲解</h3>
+<h2><span id="1-处理器的基本概念">1. 处理器的基本概念</span></h2>
+<h3><span id="知识点讲解">知识点讲解</span></h3>
 <p><strong>处理器（Processor / CPU）</strong> 是计算机的&quot;大脑&quot;，它的核心任务是<strong>执行指令</strong>。每条指令的执行可以分解为以下几个基本步骤：</p>
 <blockquote>
 <p><strong>通俗理解</strong>：处理器就像一个工厂的流水线工人——他需要&quot;取材料（取指令）→ 看图纸（译码）→ 加工（执行）→ 写报告（写回）&quot;。</p>
 </blockquote>
-<h3 id="指令执行的五个阶段">指令执行的五个阶段</h3>
+<h3><span id="指令执行的五个阶段">指令执行的五个阶段</span></h3>
 <table>
 <thead>
 <tr>
@@ -272,7 +272,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="两种基本设计方法">两种基本设计方法</h3>
+<h3><span id="两种基本设计方法">两种基本设计方法</span></h3>
 <table>
 <thead>
 <tr>
@@ -294,7 +294,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="关键术语">关键术语</h3>
+<h3><span id="关键术语">关键术语</span></h3>
 <table>
 <thead>
 <tr>
@@ -322,8 +322,8 @@
 </tbody>
 </table>
 <hr>
-<h2 id="2-数据通路（Datapath）">2. 数据通路（Datapath）</h2>
-<h3 id="知识点讲解-2">知识点讲解</h3>
+<h2><span id="2-数据通路datapath">2. 数据通路（Datapath）</span></h2>
+<h3><span id="知识点讲解">知识点讲解</span></h3>
 <p><strong>数据通路</strong>是处理器中用于<strong>处理数据</strong>的部件及其连接方式。它包括：</p>
 <ul>
 <li>算术逻辑单元（ALU）</li>
@@ -335,7 +335,7 @@
 <blockquote>
 <p><strong>通俗理解</strong>：数据通路就是处理器内部的&quot;高速公路网络&quot;，数据在这条路上从寄存器到 ALU，再到内存，最后再回来。</p>
 </blockquote>
-<h3 id="核心组件">核心组件</h3>
+<h3><span id="核心组件">核心组件</span></h3>
 <table>
 <thead>
 <tr>
@@ -370,7 +370,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="经典例题">经典例题</h3>
+<h3><span id="经典例题">经典例题</span></h3>
 <p><strong>题目</strong>：画出 MIPS <code>lw</code> 指令在数据通路中的执行路径。</p>
 <p><strong>解答</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PC → 指令存储器 → 寄存器堆（读rs） → ALU（计算地址） → 数据存储器 → 寄存器堆（写回）</span><br><span class="line">                          ↑（读rt）</span><br></pre></td></tr></table></figure>
@@ -383,13 +383,13 @@
 <li>数据 → 寄存器堆（写回到 rt）</li>
 </ol>
 <hr>
-<h2 id="3-控制单元（Control-Unit）">3. 控制单元（Control Unit）</h2>
-<h3 id="知识点讲解-3">知识点讲解</h3>
+<h2><span id="3-控制单元control-unit">3. 控制单元（Control Unit）</span></h2>
+<h3><span id="知识点讲解">知识点讲解</span></h3>
 <p><strong>控制单元</strong>负责根据指令的类型，生成控制信号来指挥数据通路中的各个组件工作。</p>
 <blockquote>
 <p><strong>通俗理解</strong>：控制单元就像&quot;交通指挥员&quot;——它告诉每个 MUX 走哪条路，告诉 ALU 做什么运算，告诉存储器是读还是写。</p>
 </blockquote>
-<h3 id="主要控制信号">主要控制信号</h3>
+<h3><span id="主要控制信号">主要控制信号</span></h3>
 <table>
 <thead>
 <tr>
@@ -441,7 +441,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="各类指令的控制信号">各类指令的控制信号</h3>
+<h3><span id="各类指令的控制信号">各类指令的控制信号</span></h3>
 <table>
 <thead>
 <tr>
@@ -501,7 +501,7 @@
 <blockquote>
 <p>X = 不关心（Don’t Care）</p>
 </blockquote>
-<h3 id="经典例题-2">经典例题</h3>
+<h3><span id="经典例题">经典例题</span></h3>
 <p><strong>题目</strong>：如果控制信号 ALUSrc 被错误地设为 0（应为 1），<code>lw $t0, 40($s0)</code> 会怎样执行？</p>
 <p><strong>解答</strong>：</p>
 <ul>
@@ -511,22 +511,22 @@
 <li>这就是为什么控制信号必须正确的关键！</li>
 </ul>
 <hr>
-<h2 id="4-单周期处理器">4. 单周期处理器</h2>
-<h3 id="知识点讲解-4">知识点讲解</h3>
+<h2><span id="4-单周期处理器">4. 单周期处理器</span></h2>
+<h3><span id="知识点讲解">知识点讲解</span></h3>
 <p><strong>单周期处理器</strong>是指所有指令都在<strong>一个时钟周期</strong>内完成。每个周期内，指令依次经过 IF → ID → EX → MEM → WB 所有阶段。</p>
 <blockquote>
 <p><strong>通俗理解</strong>：就像食堂只有一个打饭窗口——每个人都要从头到尾打完饭才能轮到下一个人。简单但慢。</p>
 </blockquote>
-<h3 id="设计要点">设计要点</h3>
+<h3><span id="设计要点">设计要点</span></h3>
 <ul>
 <li><strong>时钟周期必须足够长</strong>，以容纳最慢的指令（通常是 <code>lw</code>）</li>
 <li>所有指令都在一个周期内完成</li>
 <li>硬件设计简单，但效率低</li>
 </ul>
-<h3 id="关键路径（Critical-Path）">关键路径（Critical Path）</h3>
+<h3><span id="关键路径critical-path">关键路径（Critical Path）</span></h3>
 <p>最慢的指令决定了时钟周期长度。<code>lw</code> 通常是最慢的，因为它经过的组件最多：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PC → 指令存储器 → 寄存器堆(读) → ALU → 数据存储器(读) → 寄存器堆(写)</span><br></pre></td></tr></table></figure>
-<h3 id="单周期-vs-其他设计">单周期 vs 其他设计</h3>
+<h3><span id="单周期-vs-其他设计">单周期 vs 其他设计</span></h3>
 <table>
 <thead>
 <tr>
@@ -563,7 +563,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="经典例题-3">经典例题</h3>
+<h3><span id="经典例题">经典例题</span></h3>
 <p><strong>题目</strong>：假设：</p>
 <ul>
 <li>指令存储器：2ns</li>
@@ -578,13 +578,13 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">IF(2ns) + ID(1ns) + EX(2ns) + MEM(2ns) + WB(1ns) + 控制(0.5ns)</span><br><span class="line">= 2 + 1 + 2 + 2 + 1 + 0.5 = 8.5ns</span><br></pre></td></tr></table></figure>
 <p>最大时钟频率 = 1 / 8.5ns ≈ 117.6 MHz</p>
 <hr>
-<h2 id="5-流水线（Pipeline）概述">5. 流水线（Pipeline）概述</h2>
-<h3 id="知识点讲解-5">知识点讲解</h3>
+<h2><span id="5-流水线pipeline概述">5. 流水线（Pipeline）概述</span></h2>
+<h3><span id="知识点讲解">知识点讲解</span></h3>
 <p><strong>流水线</strong>是提高处理器吞吐量的核心技术。它将指令执行过程分成多个阶段，<strong>不同指令的不同阶段可以重叠执行</strong>。</p>
 <blockquote>
 <p><strong>通俗理解</strong>：就像洗衣服——你不需要等洗完晾干再洗下一批。你可以同时洗一批、甩干一批、晾一批。流水线让处理器的&quot;各个功能部件&quot;一直忙碌，而不是等待一条指令完全结束才开始下一条。</p>
 </blockquote>
-<h3 id="五级流水线">五级流水线</h3>
+<h3><span id="五级流水线">五级流水线</span></h3>
 <table>
 <thead>
 <tr>
@@ -615,15 +615,15 @@
 </tr>
 </tbody>
 </table>
-<h3 id="流水线的性能">流水线的性能</h3>
+<h3><span id="流水线的性能">流水线的性能</span></h3>
 <p><strong>理想情况下</strong>，流水线将吞吐量提高到原来的 <strong>N 倍</strong>（N = 流水线级数）。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">非流水线：   [IF][ID][EX][MEM][WB]  [IF][ID][EX][MEM][WB]  ...</span><br><span class="line">                    ↑ 一条指令完成才取下一条</span><br><span class="line"></span><br><span class="line">流水线：     [IF][ID][EX][MEM][WB]</span><br><span class="line">               [IF][ID][EX][MEM][WB]</span><br><span class="line">                  [IF][ID][EX][MEM][WB]</span><br><span class="line">                    ↑ 每周期完成一条指令！</span><br></pre></td></tr></table></figure>
-<h3 id="流水线加速比">流水线加速比</h3>
+<h3><span id="流水线加速比">流水线加速比</span></h3>
 <ul>
 <li><strong>理想加速比</strong> = 流水线级数（5 级流水线理想快 5 倍）</li>
 <li><strong>实际加速比</strong> &lt; 理想值，因为存在<strong>冒险（Hazards）</strong></li>
 </ul>
-<h3 id="经典例题-4">经典例题</h3>
+<h3><span id="经典例题">经典例题</span></h3>
 <p><strong>题目</strong>：一段程序有 1000 条指令。非流水线 CPU 每条指令 10ns。5 级流水线 CPU 每级 2ns。不考虑冒险，各需要多少时间？</p>
 <p><strong>解答</strong>：</p>
 <ul>
@@ -638,13 +638,13 @@
 <li><strong>加速比</strong> = 10000 / 2008 ≈ <strong>4.98 倍</strong></li>
 </ul>
 <hr>
-<h2 id="6-流水线数据通路">6. 流水线数据通路</h2>
-<h3 id="知识点讲解-6">知识点讲解</h3>
+<h2><span id="6-流水线数据通路">6. 流水线数据通路</span></h2>
+<h3><span id="知识点讲解">知识点讲解</span></h3>
 <p>为了实现流水线，我们需要在每两个阶段之间插入<strong>流水线寄存器（Pipeline Registers）</strong>，用来保存中间结果。</p>
 <blockquote>
 <p><strong>通俗理解</strong>：流水线寄存器就像流水线上每个工位之间的&quot;传送带&quot;——工人把半成品放在传送带上，下一个工人拿起来继续加工。</p>
 </blockquote>
-<h3 id="五级流水线的流水线寄存器">五级流水线的流水线寄存器</h3>
+<h3><span id="五级流水线的流水线寄存器">五级流水线的流水线寄存器</span></h3>
 <table>
 <thead>
 <tr>
@@ -676,7 +676,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="控制信号的流水线传递">控制信号的流水线传递</h3>
+<h3><span id="控制信号的流水线传递">控制信号的流水线传递</span></h3>
 <p>控制信号在 ID 阶段生成后，会随着流水线寄存器逐级传递：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ID阶段生成 → ID/EX → EX/MEM → MEM/WB</span><br></pre></td></tr></table></figure>
 <ul>
@@ -685,20 +685,20 @@
 <li><strong>WB 阶段使用的信号</strong>：MemtoReg, RegWrite</li>
 </ul>
 <hr>
-<h2 id="7-流水线冒险（Hazards）">7. 流水线冒险（Hazards）</h2>
-<h3 id="知识点讲解-7">知识点讲解</h3>
+<h2><span id="7-流水线冒险hazards">7. 流水线冒险（Hazards）</span></h2>
+<h3><span id="知识点讲解">知识点讲解</span></h3>
 <p><strong>冒险</strong>是指流水线中下一条指令无法在下一个时钟周期正确执行的情况。有三种类型的冒险：</p>
 <blockquote>
 <p><strong>通俗理解</strong>：就像厨房流水线上——如果厨师 A 需要等厨师 B 用完锅才能炒菜（结构冒险），或者需要等厨师 B 切完菜才能用（数据冒险），或者接到菜单发现不知道做什么菜（控制冒险）。</p>
 </blockquote>
 <hr>
-<h3 id="7-1-结构冒险（Structural-Hazard）">7.1 结构冒险（Structural Hazard）</h3>
-<h4 id="知识点讲解-8">知识点讲解</h4>
+<h3><span id="71-结构冒险structural-hazard">7.1 结构冒险（Structural Hazard）</span></h3>
+<h4><span id="知识点讲解">知识点讲解</span></h4>
 <p><strong>结构冒险</strong>发生在硬件资源不足时——两条指令同时需要使用同一个硬件部件。</p>
-<h4 id="举例">举例</h4>
+<h4><span id="举例">举例</span></h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lw  $t0, 0($sp)    [IF] [ID] [EX] [MEM] [WB]</span><br><span class="line">add $t1, $t0, $s0        [IF] [ID] [EX] [MEM] [WB]</span><br></pre></td></tr></table></figure>
 <p>如果指令存储器和数据存储器是同一个（冯·诺依曼架构），那么第一条指令在 MEM 阶段访问内存时，第二条指令在 IF 阶段也要访问内存——<strong>冲突！</strong></p>
-<h4 id="解决方法">解决方法</h4>
+<h4><span id="解决方法">解决方法</span></h4>
 <table>
 <thead>
 <tr>
@@ -720,7 +720,7 @@
 <blockquote>
 <p>现代处理器大多使用分离的缓存（L1 I-Cache 和 L1 D-Cache）来避免结构冒险。</p>
 </blockquote>
-<h4 id="经典例题-5">经典例题</h4>
+<h4><span id="经典例题">经典例题</span></h4>
 <p><strong>题目</strong>：冯·诺依曼架构的处理器，如果在同一周期既要取指令又要访问数据，会发生什么？</p>
 <p><strong>解答</strong>：</p>
 <ul>
@@ -729,13 +729,13 @@
 <li>代价是性能损失</li>
 </ul>
 <hr>
-<h3 id="7-2-数据冒险（Data-Hazard）">7.2 数据冒险（Data Hazard）</h3>
-<h4 id="知识点讲解-9">知识点讲解</h4>
+<h3><span id="72-数据冒险data-hazard">7.2 数据冒险（Data Hazard）</span></h3>
+<h4><span id="知识点讲解">知识点讲解</span></h4>
 <p><strong>数据冒险</strong>是指一条指令依赖于前一条指令的结果，但前一条指令的结果还没写回寄存器。</p>
 <blockquote>
 <p><strong>通俗理解</strong>：你要用面粉，但面粉还在加工中没出来——你只能等着。</p>
 </blockquote>
-<h4 id="三种数据冒险类型">三种数据冒险类型</h4>
+<h4><span id="三种数据冒险类型">三种数据冒险类型</span></h4>
 <table>
 <thead>
 <tr>
@@ -769,10 +769,10 @@
 <blockquote>
 <p>MIPS 五级流水线中只存在 RAW 冒险。</p>
 </blockquote>
-<h4 id="数据冒险检测">数据冒险检测</h4>
+<h4><span id="数据冒险检测">数据冒险检测</span></h4>
 <p>通过检查流水线寄存器中的目标寄存器编号和当前指令的源寄存器编号是否匹配：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">add $s0, $t0, $t1   # 写入 $s0</span><br><span class="line">sub $t2, $s0, $t3   # 读取 $s0 ← 数据冒险！</span><br></pre></td></tr></table></figure>
-<h4 id="经典例题-6">经典例题</h4>
+<h4><span id="经典例题">经典例题</span></h4>
 <p><strong>题目</strong>：指出以下代码中的数据冒险：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lw  $t0, 0($s0)</span><br><span class="line">add $t1, $t0, $s1</span><br><span class="line">sub $t2, $t1, $s2</span><br></pre></td></tr></table></figure>
 <p><strong>解答</strong>：</p>
@@ -782,16 +782,16 @@
 </ol>
 <p>这涉及两种解决方案：<strong>转发</strong> 和 <strong>插入气泡</strong>（见第 8、9 节）。</p>
 <hr>
-<h3 id="7-3-控制冒险（Control-Hazard）">7.3 控制冒险（Control Hazard）</h3>
-<h4 id="知识点讲解-10">知识点讲解</h4>
+<h3><span id="73-控制冒险control-hazard">7.3 控制冒险（Control Hazard）</span></h3>
+<h4><span id="知识点讲解">知识点讲解</span></h4>
 <p><strong>控制冒险</strong>（也叫分支冒险）发生在执行分支指令时——我们不知道下一条该取哪条指令，因为分支结果还没算出来。</p>
 <blockquote>
 <p><strong>通俗理解</strong>：开车到了一个岔路口，你还没决定左转还是右转，但车不能停——你必须猜一个方向先走。</p>
 </blockquote>
-<h4 id="分支指令的时间线">分支指令的时间线</h4>
+<h4><span id="分支指令的时间线">分支指令的时间线</span></h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">beq $t0, $t1, Target  [IF] [ID] [EX] [MEM] [WB]</span><br><span class="line">?                     [IF] [ID] [EX] [MEM] [WB]   ← 取哪条指令？</span><br></pre></td></tr></table></figure>
 <p>beq 在 EX 阶段才算出结果，这意味着我们<strong>已经多取了 2 条指令</strong>。</p>
-<h4 id="解决方法-2">解决方法</h4>
+<h4><span id="解决方法">解决方法</span></h4>
 <table>
 <thead>
 <tr>
@@ -824,16 +824,16 @@
 </tbody>
 </table>
 <hr>
-<h2 id="8-转发（Forwarding）技术">8. 转发（Forwarding）技术</h2>
-<h3 id="知识点讲解-11">知识点讲解</h3>
+<h2><span id="8-转发forwarding技术">8. 转发（Forwarding）技术</span></h2>
+<h3><span id="知识点讲解">知识点讲解</span></h3>
 <p><strong>转发</strong>（也叫旁路 Bypassing）是解决数据冒险最有效的方法。它的思路是：<strong>结果一算出来就传给需要的指令，不等它写回寄存器</strong>。</p>
 <blockquote>
 <p><strong>通俗理解</strong>：你在做菜，A 刚切好葱花，B 马上要葱花——A 直接递过去，不用先放回冰箱再拿出来。</p>
 </blockquote>
-<h3 id="转发的工作原理">转发的工作原理</h3>
+<h3><span id="转发的工作原理">转发的工作原理</span></h3>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">add $s0, $t0, $t1    [IF] [ID] [EX] [MEM] [WB]</span><br><span class="line">sub $t2, $s0, $t3         [IF] [ID] [EX] [MEM] [WB]</span><br><span class="line">                              ↑转发 $s0 的结果！</span><br></pre></td></tr></table></figure>
 <p>add 在 EX 阶段就算出了 $s0 的结果，这个结果可以直接从 EX/MEM 流水线寄存器转发给 sub 的 EX 阶段。</p>
-<h3 id="转发路径">转发路径</h3>
+<h3><span id="转发路径">转发路径</span></h3>
 <table>
 <thead>
 <tr>
@@ -860,9 +860,9 @@
 </tr>
 </tbody>
 </table>
-<h3 id="需要转发的指令组合">需要转发的指令组合</h3>
+<h3><span id="需要转发的指令组合">需要转发的指令组合</span></h3>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 情况 1：EX/MEM → EX（前一条的结果在 EX/MEM 中）</span><br><span class="line">add $s0, $t0, $t1    # EX 阶段产出结果</span><br><span class="line">sub $t2, $s0, $t3    # 下一条指令的 EX 阶段需要 $s0</span><br><span class="line"></span><br><span class="line"># 情况 2：MEM/WB → EX（前两条的结果在 MEM/WB 中）</span><br><span class="line">add $s0, $t0, $t1</span><br><span class="line">nop                   # 或一条不相关的指令</span><br><span class="line">sub $t2, $s0, $t3    # 从 MEM/WB 转发</span><br></pre></td></tr></table></figure>
-<h3 id="经典例题-7">经典例题</h3>
+<h3><span id="经典例题">经典例题</span></h3>
 <p><strong>题目</strong>：以下代码中，转发能否解决所有数据冒险？如果不能，如何处理？</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lw  $t0, 0($s0)</span><br><span class="line">add $t1, $t0, $s1</span><br></pre></td></tr></table></figure>
 <p><strong>解答</strong>：</p>
@@ -881,40 +881,40 @@
 <li><strong>需要&quot;加载-使用&quot;检测</strong>——这就是为什么有些情况仍需停顿</li>
 </ul>
 <hr>
-<h2 id="9-流水线停顿与插入气泡">9. 流水线停顿与插入气泡</h2>
-<h3 id="知识点讲解-12">知识点讲解</h3>
+<h2><span id="9-流水线停顿与插入气泡">9. 流水线停顿与插入气泡</span></h2>
+<h3><span id="知识点讲解">知识点讲解</span></h3>
 <p>虽然转发能解决大部分数据冒险，但有一种情况转发解决不了——<strong>加载-使用冒险（Load-Use Hazard）</strong>。当 <code>lw</code> 指令加载的数据立即被下一条指令使用时，需要插入一个<strong>气泡（Bubble）</strong> 即停顿周期。</p>
 <blockquote>
 <p><strong>通俗理解</strong>：有些材料没法直接传递——比如你要用刚从仓库领出来的零件。仓库那边刚拿出来还在路上，你就只能等一个节拍。</p>
 </blockquote>
-<h3 id="什么时候需要停顿">什么时候需要停顿</h3>
+<h3><span id="什么时候需要停顿">什么时候需要停顿</span></h3>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lw  $t0, 0($s0)      # MEM 阶段才拿到数据</span><br><span class="line">add $t1, $t0, $s1    # EX 阶段就需要 $t0 → 需要停顿！</span><br></pre></td></tr></table></figure>
 <p>停顿后的流水线：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lw  [IF] [ID] [EX] [MEM] [WB]</span><br><span class="line">add      [IF] [ID] [STALL] [EX] [MEM] [WB]</span><br><span class="line">                                      ↑ 插入一个气泡</span><br></pre></td></tr></table></figure>
-<h3 id="硬件检测单元">硬件检测单元</h3>
+<h3><span id="硬件检测单元">硬件检测单元</span></h3>
 <p>处理器中有一个<strong>冒险检测单元（Hazard Detection Unit）</strong> 负责：</p>
 <ol>
 <li>检查 ID/EX 中的 rt 是否等于 IF/ID 中的 rs 或 rt（即 lw 的目标是否是下一条指令的源）</li>
 <li>如果是，将 ID/EX 的控制信号全部清零（插入气泡）</li>
 <li>同时让 PC 和 IF/ID 寄存器保持不变（停顿）</li>
 </ol>
-<h3 id="编译器优化">编译器优化</h3>
+<h3><span id="编译器优化">编译器优化</span></h3>
 <p>优秀的编译器可以通过<strong>指令调度（Instruction Scheduling）</strong> 来避免加载-使用冒险：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 不好的代码：lw 后立即使用</span><br><span class="line">lw  $t0, 0($s0)</span><br><span class="line">add $t1, $t0, $s1    # 需要停顿</span><br><span class="line"></span><br><span class="line"># 好的代码：在 lw 和它的使用之间插入其他指令</span><br><span class="line">lw  $t0, 0($s0)</span><br><span class="line">add $s2, $s3, $s4    # 不相关的指令</span><br><span class="line">add $t1, $t0, $s1    # 不再需要停顿</span><br></pre></td></tr></table></figure>
-<h3 id="经典例题-8">经典例题</h3>
+<h3><span id="经典例题">经典例题</span></h3>
 <p><strong>题目</strong>：以下代码需要插入几个停顿周期？</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lw  $t0, 0($s0)</span><br><span class="line">add $t1, $t0, $s1</span><br><span class="line">sub $t2, $t1, $s2</span><br></pre></td></tr></table></figure>
 <p><strong>解答</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 分析冒险：</span><br><span class="line"># lw → add: $t0 有加载-使用冒险 → 需要 1 个停顿</span><br><span class="line"># add → sub: $t1 可以通过转发解决 → 不需要停顿</span><br><span class="line"></span><br><span class="line"># 停顿后流水线：</span><br><span class="line">lw   [IF] [ID] [EX] [MEM] [WB]</span><br><span class="line">add       [IF] [ID] [STL] [EX] [MEM] [WB]  ← $t0 从 MEM/WB 转发到 EX</span><br><span class="line">sub            [IF] [IF]  [ID] [EX] [MEM]  ← $t1 从 EX/MEM 转发到 EX</span><br></pre></td></tr></table></figure>
 <p>所以只需要 <strong>1 个停顿周期</strong>。</p>
 <hr>
-<h2 id="10-分支预测">10. 分支预测</h2>
-<h3 id="知识点讲解-13">知识点讲解</h3>
+<h2><span id="10-分支预测">10. 分支预测</span></h2>
+<h3><span id="知识点讲解">知识点讲解</span></h3>
 <p><strong>分支预测</strong>用于解决控制冒险——在分支结果算出来之前，猜测分支是否跳转，并根据猜测取指令。</p>
 <blockquote>
 <p><strong>通俗理解</strong>：就像天气预测——你猜明天会不会下雨来决定带不带伞。猜对了方便，猜错了麻烦。</p>
 </blockquote>
-<h3 id="静态分支预测">静态分支预测</h3>
+<h3><span id="静态分支预测">静态分支预测</span></h3>
 <table>
 <thead>
 <tr>
@@ -941,9 +941,9 @@
 </tr>
 </tbody>
 </table>
-<h3 id="动态分支预测">动态分支预测</h3>
+<h3><span id="动态分支预测">动态分支预测</span></h3>
 <p><strong>分支历史表（Branch History Table, BHT）</strong>：记录每个分支指令的历史行为。</p>
-<h4 id="1-位预测器">1 位预测器</h4>
+<h4><span id="1-位预测器">1 位预测器</span></h4>
 <table>
 <thead>
 <tr>
@@ -975,12 +975,12 @@
 </tr>
 </tbody>
 </table>
-<h4 id="2-位预测器">2 位预测器</h4>
+<h4><span id="2-位预测器">2 位预测器</span></h4>
 <p>使用 2 位状态机，需要连续猜错<strong>两次</strong>才改变预测方向。准确率更高（~90%+）。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">          猜错1次              猜错1次</span><br><span class="line">预测不跳转 ←————→ 弱不跳转 ←————→ 弱跳转 ←————→ 预测跳转</span><br><span class="line">                 猜对恢复            猜对恢复</span><br></pre></td></tr></table></figure>
-<h3 id="分支目标缓冲器（BTB）">分支目标缓冲器（BTB）</h3>
+<h3><span id="分支目标缓冲器btb">分支目标缓冲器（BTB）</span></h3>
 <p>除了预测是否跳转，还要知道<strong>跳到哪里</strong>。BTB 缓存分支指令的地址和对应的目标地址。</p>
-<h3 id="经典例题-9">经典例题</h3>
+<h3><span id="经典例题">经典例题</span></h3>
 <p><strong>题目</strong>：一个循环执行 10 次，使用 1 位预测器。第一次执行循环时预测不跳转，问预测准确率。</p>
 <p><strong>解答</strong>：</p>
 <ul>
@@ -1000,13 +1000,13 @@
 </ul>
 <p>准确率 = (8 次正确) / (10 次) = <strong>80%</strong></p>
 <hr>
-<h2 id="11-异常与中断">11. 异常与中断</h2>
-<h3 id="知识点讲解-14">知识点讲解</h3>
+<h2><span id="11-异常与中断">11. 异常与中断</span></h2>
+<h3><span id="知识点讲解">知识点讲解</span></h3>
 <p><strong>异常（Exception）</strong> 是指 CPU 在执行指令时遇到的意外情况（如溢出、无效指令等）。<strong>中断（Interrupt）</strong> 是外部设备发出的信号。</p>
 <blockquote>
 <p><strong>通俗理解</strong>：异常就像你写代码时发现了 bug（除零错误），中断就像你正在工作，电话响了（外部事件）。</p>
 </blockquote>
-<h3 id="MIPS-中的异常处理">MIPS 中的异常处理</h3>
+<h3><span id="mips-中的异常处理">MIPS 中的异常处理</span></h3>
 <table>
 <thead>
 <tr>
@@ -1029,7 +1029,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="流水线中的异常">流水线中的异常</h3>
+<h3><span id="流水线中的异常">流水线中的异常</span></h3>
 <p>流水线中处理异常更复杂，因为有多条指令同时执行：</p>
 <table>
 <thead>
@@ -1057,13 +1057,13 @@
 <p>MIPS 要求<strong>精确异常</strong>——异常发生时，流水线要 flush 异常指令后面的指令，让前面的指令正常完成。</p>
 </blockquote>
 <hr>
-<h2 id="12-指令级并行（ILP）">12. 指令级并行（ILP）</h2>
-<h3 id="知识点讲解-15">知识点讲解</h3>
+<h2><span id="12-指令级并行ilp">12. 指令级并行（ILP）</span></h2>
+<h3><span id="知识点讲解">知识点讲解</span></h3>
 <p><strong>指令级并行（Instruction-Level Parallelism）</strong> 是让多条指令同时执行的技术。</p>
 <blockquote>
 <p><strong>通俗理解</strong>：不只是流水线让指令重叠执行，还可以通过更&quot;激进&quot;的方式让多条指令真正并行执行。</p>
 </blockquote>
-<h3 id="ILP-的来源">ILP 的来源</h3>
+<h3><span id="ilp-的来源">ILP 的来源</span></h3>
 <table>
 <thead>
 <tr>
@@ -1095,21 +1095,21 @@
 </tr>
 </tbody>
 </table>
-<h3 id="超标量（Superscalar）">超标量（Superscalar）</h3>
+<h3><span id="超标量superscalar">超标量（Superscalar）</span></h3>
 <p>每个时钟周期发射 <strong>2 条或更多指令</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">周期 1: [IF(inst1)] [IF(inst2)]</span><br><span class="line">周期 2: [ID(inst1)] [ID(inst2)]</span><br><span class="line">周期 3: [EX(inst1)] [EX(inst2)]</span><br></pre></td></tr></table></figure>
-<h3 id="超长指令字（VLIW）">超长指令字（VLIW）</h3>
+<h3><span id="超长指令字vliw">超长指令字（VLIW）</span></h3>
 <p>编译器将多条可以并行执行的指令打包成一个&quot;长指令&quot;，由硬件直接并行执行。</p>
-<h3 id="经典例题-10">经典例题</h3>
+<h3><span id="经典例题">经典例题</span></h3>
 <p><strong>题目</strong>：假设一个 2 路超标量处理器，每个周期最多发射 2 条指令。以下代码需要多少个周期？</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">lw  $t0, 0($s0)</span><br><span class="line">add $t1, $t1, 1</span><br><span class="line">sub $t2, $t2, 1</span><br><span class="line">sw  $t1, 0($s1)</span><br></pre></td></tr></table></figure>
 <p><strong>解答</strong>（假设无数据依赖）：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">周期 1: lw          + add          (同时发射)</span><br><span class="line">周期 2: sub         + sw           (同时发射)</span><br><span class="line">总周期：2 个周期（非超标量需要 4 个周期）</span><br></pre></td></tr></table></figure>
 <hr>
-<h2 id="13-多周期处理器-vs-单周期处理器">13. 多周期处理器 vs 单周期处理器</h2>
-<h3 id="知识点讲解-16">知识点讲解</h3>
+<h2><span id="13-多周期处理器-vs-单周期处理器">13. 多周期处理器 vs 单周期处理器</span></h2>
+<h3><span id="知识点讲解">知识点讲解</span></h3>
 <p><strong>多周期处理器</strong>将指令分成多个步骤，每个步骤用一个时钟周期，但不同指令可以使用不同数量的周期。</p>
-<h3 id="设计对比">设计对比</h3>
+<h3><span id="设计对比">设计对比</span></h3>
 <table>
 <thead>
 <tr>
@@ -1152,44 +1152,44 @@
 </tr>
 </tbody>
 </table>
-<h3 id="多周期处理器的优点">多周期处理器的优点</h3>
+<h3><span id="多周期处理器的优点">多周期处理器的优点</span></h3>
 <ul>
 <li>可以<strong>复用硬件</strong>（例如：一个 ALU 既用来计算地址，又用来执行运算）</li>
 <li>不同指令可以用不同周期数（lw 5 个周期，add 4 个周期）</li>
 <li>时钟周期可以更短（每个周期只做一件事）</li>
 </ul>
-<h3 id="经典例题-11">经典例题</h3>
+<h3><span id="经典例题">经典例题</span></h3>
 <p><strong>题目</strong>：一个多周期处理器中，<code>lw</code> 需要 5 个周期，<code>add</code> 需要 4 个周期，<code>beq</code> 需要 3 个周期。一个程序有 100 条 lw、200 条 add、50 条 beq，总周期数和平均 CPI 是多少？</p>
 <p><strong>解答</strong>：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">总周期数 = 100×5 + 200×4 + 50×3 = 500 + 800 + 150 = 1450 周期</span><br><span class="line">总指令数 = 100 + 200 + 50 = 350 条</span><br><span class="line">平均 CPI = 1450 / 350 ≈ 4.14</span><br></pre></td></tr></table></figure>
 <hr>
-<h2 id="14-现代处理器技术">14. 现代处理器技术</h2>
-<h3 id="知识点讲解-17">知识点讲解</h3>
+<h2><span id="14-现代处理器技术">14. 现代处理器技术</span></h2>
+<h3><span id="知识点讲解">知识点讲解</span></h3>
 <p>现代处理器在流水线的基础上，增加了许多先进技术来进一步提升性能。</p>
-<h3 id="乱序执行（Out-of-Order-Execution）">乱序执行（Out-of-Order Execution）</h3>
+<h3><span id="乱序执行out-of-order-execution">乱序执行（Out-of-Order Execution）</span></h3>
 <ul>
 <li>指令不按程序顺序执行，而是<strong>有数据就执行</strong></li>
 <li>需要<strong>重排序缓冲（ROB）</strong> 来保证最终结果正确</li>
 <li>指令的<strong>提交（Commit）</strong> 仍然按序进行</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">程序顺序：  lw $t0 → add $t1,$t0 → sub $t2,$s0 → add $t3,$s1</span><br><span class="line">实际执行：  sub $t2,$s0 → add $t3,$s1 → lw $t0 → add $t1,$t0</span><br><span class="line">             ↑ sub 和 add 不依赖前面的结果，先执行</span><br></pre></td></tr></table></figure>
-<h3 id="寄存器重命名（Register-Renaming）">寄存器重命名（Register Renaming）</h3>
+<h3><span id="寄存器重命名register-renaming">寄存器重命名（Register Renaming）</span></h3>
 <p>解决 WAR 和 WAW 冒险：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 程序中的指令</span><br><span class="line">add $t0, $s0, $s1</span><br><span class="line">sub $s2, $t0, $s3</span><br><span class="line">add $t0, $s4, $s5    # 和第一条的 $t0 不同！</span><br><span class="line"></span><br><span class="line"># 重命名后</span><br><span class="line">add $p1, $s0, $s1    # $t0 → 物理寄存器 $p1</span><br><span class="line">sub $s2, $p1, $s3</span><br><span class="line">add $p2, $s4, $s5    # 这个 $t0 → 不同的物理寄存器 $p2</span><br></pre></td></tr></table></figure>
-<h3 id="推测执行（Speculative-Execution）">推测执行（Speculative Execution）</h3>
+<h3><span id="推测执行speculative-execution">推测执行（Speculative Execution）</span></h3>
 <ul>
 <li>在分支预测的基础上，<strong>推测性地执行分支后的指令</strong></li>
 <li>如果预测正确，直接使用结果</li>
 <li>如果预测错误，<strong>废弃</strong>推测执行的结果</li>
 </ul>
-<h3 id="同时多线程（SMT-Hyper-Threading）">同时多线程（SMT / Hyper-Threading）</h3>
+<h3><span id="同时多线程smt-hyper-threading">同时多线程（SMT / Hyper-Threading）</span></h3>
 <ul>
 <li>一个物理核心同时执行多个线程</li>
 <li>利用线程间的不相关性来填补流水线气泡</li>
 </ul>
 <hr>
-<h2 id="附：流水线冒险速查表">附：流水线冒险速查表</h2>
-<h3 id="数据冒险转发条件">数据冒险转发条件</h3>
+<h2><span id="附流水线冒险速查表">附：流水线冒险速查表</span></h2>
+<h3><span id="数据冒险转发条件">数据冒险转发条件</span></h3>
 <table>
 <thead>
 <tr>
@@ -1221,9 +1221,9 @@
 </tr>
 </tbody>
 </table>
-<h3 id="需要停顿的情况">需要停顿的情况</h3>
+<h3><span id="需要停顿的情况">需要停顿的情况</span></h3>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if (ID/EX.MemRead &amp;&amp; (ID/EX.rt == IF/ID.rs || ID/EX.rt == IF/ID.rt)) &#123;</span><br><span class="line">    // lw 的加载-使用冒险 → 插入气泡</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="分支预测速查">分支预测速查</h3>
+<h3><span id="分支预测速查">分支预测速查</span></h3>
 <table>
 <thead>
 <tr>
@@ -1271,7 +1271,7 @@
 </ol>
 <p>画出流水线的时序图是理解这一章最好的方法！</p>
 </blockquote>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://Aetik-yue.github.io">Aetik</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://aetik-yue.github.io/2026/06/22/Chapter%204%20%E5%A4%84%E7%90%86%E5%99%A8%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/">https://aetik-yue.github.io/2026/06/22/Chapter%204%20%E5%A4%84%E7%90%86%E5%99%A8%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://Aetik-yue.github.io" target="_blank">Aetik's Blog🍉</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">计算机组成原理</a><a class="post-meta__tags" href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a><a class="post-meta__tags" href="/tags/%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/">知识总结</a><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E9%80%9A%E8%B7%AF/">数据通路</a><a class="post-meta__tags" href="/tags/%E6%B5%81%E6%B0%B4%E7%BA%BF/">流水线</a><a class="post-meta__tags" href="/tags/%E5%86%92%E9%99%A9/">冒险</a></div><div class="post-share"><div class="social-share" data-image="/img/covers/mountain-night.svg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/07/31/Git-Flow%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86%E8%A7%84%E8%8C%83%E6%8C%87%E5%8D%97/" title="Git Flow 分支管理规范指南"><img class="cover" src="/img/covers/sunset.svg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post" loading='lazy'><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Git Flow 分支管理规范指南</div></div><div class="info-2"><div class="info-item-1">Git Flow 分支管理规范指南  在使用 Git 进行版本管理的过程中，如果没有清晰的流程和规划，每个人都提交一堆杂乱无章的 commit，项目很快就会变得难以协调和维护。Git 版本管理同样需要一个清晰的流程和规范，Vincent Driessen 为了解决这个问题提出了 A Successful Git Branching Model，也就是本文要介绍的 Git Flow 模型。   一、Git Flow 常用分支介绍 Git Flow 模型定义了五种核心分支，每种分支各司其职，共同构成完整的开发流程。 1.1 Production 分支（Master） 即我们经常使用的 Master 分支，这个分支保存的是最近发布到生产环境的代码。最近发布的 Release 都合并于此。 核心规则：  Master 分支只能从其他分支合并，不能在这个分支上直接修改 Master 分支上的每一个 Commit 都应该打上 Tag，标记版本号 一般情况下 Master 分支本身不存在直接提交的 Commit  1.2 Develop 分支 主开发分支，包含所有要发布到下一个 Release...</div></div></div></a><a class="pagination-related" href="/2026/06/22/Chapter%203%20%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%AE%97%E6%9C%AF%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" title="Chapter 3 计算机算术 — 知识点全面总结"><img class="cover" src="/img/covers/sakura.svg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post" loading='lazy'><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Chapter 3 计算机算术 — 知识点全面总结</div></div><div class="info-2"><div class="info-item-1">Chapter 3 计算机算术 — 知识点全面总结  本文档总结了计算机组成原理第3章《计算机算术》的全部知识点，基于原版 PPT 教材内容编写，使用通俗易懂的语言讲解，并附带经典例题帮助理解巩固。   目录  ALU 的设计 快速加法器 整数加法和减法 乘法运算 除法运算 浮点数的表示（IEEE 754） 浮点加减法运算 浮点乘除法运算 MIPS 浮点指令 并行性与结合律 精确算术与常见误区   1. ALU 的设计 知识点讲解 ALU（算术逻辑单元） 是 CPU 的核心运算部件。PPT 采用自底向上的方法：先设计一位 ALU，再扩展到 32 位。  通俗理解：ALU 就像 CPU 的&quot;计算器&quot;，能做加、减、与、或、比较等所有运算。它是由很多个&quot;一位计算器&quot;组成的。  1.1 一位 ALU 的构建 半加器（Half Adder） 只考虑两个输入位，不考虑进位输入：    A B 进位© 和(S)     0 0 0 0   0 1 0 1   1 0 0 1   1 1 1 0    12S = A XOR BC = A AND B 全加...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/06/22/Chapter%202%20%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E6%8C%87%E4%BB%A4%E8%AF%AD%E8%A8%80%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" title="Chapter 2 计算机的指令语言 — 知识点全面总结"><img class="cover" src="/img/covers/aurora.svg" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-06-22</div><div class="info-item-2">Chapter 2 计算机的指令语言 — 知识点全面总结</div></div><div class="info-2"><div class="info-item-1">Chapter 2 计算机的指令语言 — 知识点全面总结  本文档总结了计算机组成原理第2章《计算机的指令语言》的全部知识点，使用通俗易懂的语言讲解，并附带经典例题帮助理解巩固。   目录  指令的基本概念 MIPS 指令格式 MIPS 算术指令 MIPS 数据传输指令 MIPS 逻辑指令 MIPS 条件分支指令 MIPS 无条件跳转指令 过程调用（函数） 寻址方式总结 机器编码与指令翻译   1. 指令的基本概念 知识点讲解 计算机指令 就是计算机能&quot;听懂&quot;的最基本的命令。就像我们用中文说话一样，计算机也有自己的&quot;语言&quot;，叫做机器语言。但是机器语言全是 0 和 1，人类很难直接看懂，所以我们用汇编语言（如 MIPS、RISC-V、x86）来编写指令，然后通过汇编器翻译成机器码。  通俗理解：指令就是&quot;计算机的单词&quot;，指令集就是&quot;计算机的词汇表&quot;。不同品牌的 CPU（Intel、ARM、MIPS）有各自不同的词汇表。  关键概念           硬件和软件之间的&quot;契约&quot;——规定...</div></div></div></a><a class="pagination-related" href="/2026/06/22/Chapter%203%20%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%AE%97%E6%9C%AF%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" title="Chapter 3 计算机算术 — 知识点全面总结"><img class="cover" src="/img/covers/sakura.svg" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-06-22</div><div class="info-item-2">Chapter 3 计算机算术 — 知识点全面总结</div></div><div class="info-2"><div class="info-item-1">Chapter 3 计算机算术 — 知识点全面总结  本文档总结了计算机组成原理第3章《计算机算术》的全部知识点，基于原版 PPT 教材内容编写，使用通俗易懂的语言讲解，并附带经典例题帮助理解巩固。   目录  ALU 的设计 快速加法器 整数加法和减法 乘法运算 除法运算 浮点数的表示（IEEE 754） 浮点加减法运算 浮点乘除法运算 MIPS 浮点指令 并行性与结合律 精确算术与常见误区   1. ALU 的设计 知识点讲解 ALU（算术逻辑单元） 是 CPU 的核心运算部件。PPT 采用自底向上的方法：先设计一位 ALU，再扩展到 32 位。  通俗理解：ALU 就像 CPU 的&quot;计算器&quot;，能做加、减、与、或、比较等所有运算。它是由很多个&quot;一位计算器&quot;组成的。  1.1 一位 ALU 的构建 半加器（Half Adder） 只考虑两个输入位，不考虑进位输入：    A B 进位© 和(S)     0 0 0 0   0 1 0 1   1 0 0 1   1 1 1 0    12S = A XOR BC = A AND B 全加...</div></div></div></a><a class="pagination-related" href="/2026/06/15/Chapter%201%20%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%BD%E8%B1%A1%E6%A6%82%E5%BF%B5%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" title="Chapter 1 计算机抽象概念与技术 — 知识点全面总结"><img class="cover" src="/img/covers/desert.svg" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-06-15</div><div class="info-item-2">Chapter 1 计算机抽象概念与技术 — 知识点全面总结</div></div><div class="info-2"><div class="info-item-1">Chapter 1 计算机抽象概念与技术 — 知识点全面总结  本文档总结了计算机组成原理第1章《计算机抽象概念与技术》的全部知识点，使用通俗易懂的语言讲解，并附带经典例题帮助理解巩固。   目录  计算机系统的基本组成 计算机的发展历史 性能与功耗 计算机性能的度量 计算机的分类 影响性能的因素 摩尔定律与技术趋势   1. 计算机系统的基本组成 知识点讲解 计算机系统由硬件和软件两大部分组成。它们的关系就像&quot;身体&quot;和&quot;灵魂&quot;——硬件是看得见摸得着的设备，软件是让硬件工作的程序。  通俗理解：硬件就像钢琴（物理设备），软件就像乐谱（告诉钢琴弹什么）。没有乐谱，钢琴不会自己发声；没有钢琴，乐谱也只是纸上符号。  硬件的主要组成部分    部件 功能 类比     中央处理器（CPU） 执行指令、进行运算 工厂的工人   内存（Memory/主存） 存储正在运行的程序和数据 工人的工作台   硬盘（Secondary Storage） 长期存储大量数据 工厂的仓库   输入设备 接收用户输入（键盘、鼠标等） 进货的入口   输出设备 向用户展...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/headimgnew.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/ loading='lazy'></div><div class="author-info-name">Aetik</div><div class="author-info-description">Wanna Be Computer Science の 神 🍉</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">25</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">43</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Aetik-yue"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/Aetik-yue" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:yanhaoruiruihaoyan@163.com" target="_blank" title="网易163邮箱"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://space.bilibili.com/517569450?spm_id_from=333.1007.0.0" target="_blank" title="Bilibili"><i class="iconfont icon-bilibili" style="color: #f05383;"></i></a><a class="social-icon" href="https://leetcode.cn/u/an-pei-la-xing-ren-d/" target="_blank" title="LeetCode"><i class="iconfont icon-leetcode2" style="color: #FFA116;"></i></a><a class="social-icon" href="https://blog.csdn.net/Aetik?spm=1000.2115.3001.5343" target="_blank" title="CSDN"><i class="iconfont icon-csdn" style="color: #DC3545;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">🍉 欢迎光临！这里记录我的学习日志与日常生活</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">Chapter 4 处理器 — 知识点全面总结</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95"><span class="toc-number">1.1.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%A4%84%E7%90%86%E5%99%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">1.2.</span> <span class="toc-text">1. 处理器的基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9%E8%AE%B2%E8%A7%A3"><span class="toc-number">1.2.1.</span> <span class="toc-text">知识点讲解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E6%89%A7%E8%A1%8C%E7%9A%84%E4%BA%94%E4%B8%AA%E9%98%B6%E6%AE%B5"><span class="toc-number">1.2.2.</span> <span class="toc-text">指令执行的五个阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%A4%E7%A7%8D%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95"><span class="toc-number">1.2.3.</span> <span class="toc-text">两种基本设计方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E6%9C%AF%E8%AF%AD"><span class="toc-number">1.2.4.</span> <span class="toc-text">关键术语</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%95%B0%E6%8D%AE%E9%80%9A%E8%B7%AF%EF%BC%88Datapath%EF%BC%89"><span class="toc-number">1.3.</span> <span class="toc-text">2. 数据通路（Datapath）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9%E8%AE%B2%E8%A7%A3-2"><span class="toc-number">1.3.1.</span> <span class="toc-text">知识点讲解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6"><span class="toc-number">1.3.2.</span> <span class="toc-text">核心组件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%8F%E5%85%B8%E4%BE%8B%E9%A2%98"><span class="toc-number">1.3.3.</span> <span class="toc-text">经典例题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%8E%A7%E5%88%B6%E5%8D%95%E5%85%83%EF%BC%88Control-Unit%EF%BC%89"><span class="toc-number">1.4.</span> <span class="toc-text">3. 控制单元（Control Unit）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9%E8%AE%B2%E8%A7%A3-3"><span class="toc-number">1.4.1.</span> <span class="toc-text">知识点讲解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E6%8E%A7%E5%88%B6%E4%BF%A1%E5%8F%B7"><span class="toc-number">1.4.2.</span> <span class="toc-text">主要控制信号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%84%E7%B1%BB%E6%8C%87%E4%BB%A4%E7%9A%84%E6%8E%A7%E5%88%B6%E4%BF%A1%E5%8F%B7"><span class="toc-number">1.4.3.</span> <span class="toc-text">各类指令的控制信号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%8F%E5%85%B8%E4%BE%8B%E9%A2%98-2"><span class="toc-number">1.4.4.</span> <span class="toc-text">经典例题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%8D%95%E5%91%A8%E6%9C%9F%E5%A4%84%E7%90%86%E5%99%A8"><span class="toc-number">1.5.</span> <span class="toc-text">4. 单周期处理器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9%E8%AE%B2%E8%A7%A3-4"><span class="toc-number">1.5.1.</span> <span class="toc-text">知识点讲解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E8%A6%81%E7%82%B9"><span class="toc-number">1.5.2.</span> <span class="toc-text">设计要点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84%EF%BC%88Critical-Path%EF%BC%89"><span class="toc-number">1.5.3.</span> <span class="toc-text">关键路径（Critical Path）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E5%91%A8%E6%9C%9F-vs-%E5%85%B6%E4%BB%96%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.5.4.</span> <span class="toc-text">单周期 vs 其他设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%8F%E5%85%B8%E4%BE%8B%E9%A2%98-3"><span class="toc-number">1.5.5.</span> <span class="toc-text">经典例题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E6%B5%81%E6%B0%B4%E7%BA%BF%EF%BC%88Pipeline%EF%BC%89%E6%A6%82%E8%BF%B0"><span class="toc-number">1.6.</span> <span class="toc-text">5. 流水线（Pipeline）概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9%E8%AE%B2%E8%A7%A3-5"><span class="toc-number">1.6.1.</span> <span class="toc-text">知识点讲解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%94%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%BA%BF"><span class="toc-number">1.6.2.</span> <span class="toc-text">五级流水线</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%81%E6%B0%B4%E7%BA%BF%E7%9A%84%E6%80%A7%E8%83%BD"><span class="toc-number">1.6.3.</span> <span class="toc-text">流水线的性能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%81%E6%B0%B4%E7%BA%BF%E5%8A%A0%E9%80%9F%E6%AF%94"><span class="toc-number">1.6.4.</span> <span class="toc-text">流水线加速比</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%8F%E5%85%B8%E4%BE%8B%E9%A2%98-4"><span class="toc-number">1.6.5.</span> <span class="toc-text">经典例题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E6%B5%81%E6%B0%B4%E7%BA%BF%E6%95%B0%E6%8D%AE%E9%80%9A%E8%B7%AF"><span class="toc-number">1.7.</span> <span class="toc-text">6. 流水线数据通路</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9%E8%AE%B2%E8%A7%A3-6"><span class="toc-number">1.7.1.</span> <span class="toc-text">知识点讲解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%94%E7%BA%A7%E6%B5%81%E6%B0%B4%E7%BA%BF%E7%9A%84%E6%B5%81%E6%B0%B4%E7%BA%BF%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-number">1.7.2.</span> <span class="toc-text">五级流水线的流水线寄存器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A7%E5%88%B6%E4%BF%A1%E5%8F%B7%E7%9A%84%E6%B5%81%E6%B0%B4%E7%BA%BF%E4%BC%A0%E9%80%92"><span class="toc-number">1.7.3.</span> <span class="toc-text">控制信号的流水线传递</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E6%B5%81%E6%B0%B4%E7%BA%BF%E5%86%92%E9%99%A9%EF%BC%88Hazards%EF%BC%89"><span class="toc-number">1.8.</span> <span class="toc-text">7. 流水线冒险（Hazards）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9%E8%AE%B2%E8%A7%A3-7"><span class="toc-number">1.8.1.</span> <span class="toc-text">知识点讲解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-%E7%BB%93%E6%9E%84%E5%86%92%E9%99%A9%EF%BC%88Structural-Hazard%EF%BC%89"><span class="toc-number">1.8.2.</span> <span class="toc-text">7.1 结构冒险（Structural Hazard）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9%E8%AE%B2%E8%A7%A3-8"><span class="toc-number">1.8.2.1.</span> <span class="toc-text">知识点讲解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BE%E4%BE%8B"><span class="toc-number">1.8.2.2.</span> <span class="toc-text">举例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="toc-number">1.8.2.3.</span> <span class="toc-text">解决方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%8F%E5%85%B8%E4%BE%8B%E9%A2%98-5"><span class="toc-number">1.8.2.4.</span> <span class="toc-text">经典例题</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-%E6%95%B0%E6%8D%AE%E5%86%92%E9%99%A9%EF%BC%88Data-Hazard%EF%BC%89"><span class="toc-number">1.8.3.</span> <span class="toc-text">7.2 数据冒险（Data Hazard）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9%E8%AE%B2%E8%A7%A3-9"><span class="toc-number">1.8.3.1.</span> <span class="toc-text">知识点讲解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89%E7%A7%8D%E6%95%B0%E6%8D%AE%E5%86%92%E9%99%A9%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.8.3.2.</span> <span class="toc-text">三种数据冒险类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%86%92%E9%99%A9%E6%A3%80%E6%B5%8B"><span class="toc-number">1.8.3.3.</span> <span class="toc-text">数据冒险检测</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%8F%E5%85%B8%E4%BE%8B%E9%A2%98-6"><span class="toc-number">1.8.3.4.</span> <span class="toc-text">经典例题</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-%E6%8E%A7%E5%88%B6%E5%86%92%E9%99%A9%EF%BC%88Control-Hazard%EF%BC%89"><span class="toc-number">1.8.4.</span> <span class="toc-text">7.3 控制冒险（Control Hazard）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9%E8%AE%B2%E8%A7%A3-10"><span class="toc-number">1.8.4.1.</span> <span class="toc-text">知识点讲解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E6%94%AF%E6%8C%87%E4%BB%A4%E7%9A%84%E6%97%B6%E9%97%B4%E7%BA%BF"><span class="toc-number">1.8.4.2.</span> <span class="toc-text">分支指令的时间线</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95-2"><span class="toc-number">1.8.4.3.</span> <span class="toc-text">解决方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E8%BD%AC%E5%8F%91%EF%BC%88Forwarding%EF%BC%89%E6%8A%80%E6%9C%AF"><span class="toc-number">1.9.</span> <span class="toc-text">8. 转发（Forwarding）技术</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9%E8%AE%B2%E8%A7%A3-11"><span class="toc-number">1.9.1.</span> <span class="toc-text">知识点讲解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BD%AC%E5%8F%91%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-number">1.9.2.</span> <span class="toc-text">转发的工作原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BD%AC%E5%8F%91%E8%B7%AF%E5%BE%84"><span class="toc-number">1.9.3.</span> <span class="toc-text">转发路径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9C%80%E8%A6%81%E8%BD%AC%E5%8F%91%E7%9A%84%E6%8C%87%E4%BB%A4%E7%BB%84%E5%90%88"><span class="toc-number">1.9.4.</span> <span class="toc-text">需要转发的指令组合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%8F%E5%85%B8%E4%BE%8B%E9%A2%98-7"><span class="toc-number">1.9.5.</span> <span class="toc-text">经典例题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-%E6%B5%81%E6%B0%B4%E7%BA%BF%E5%81%9C%E9%A1%BF%E4%B8%8E%E6%8F%92%E5%85%A5%E6%B0%94%E6%B3%A1"><span class="toc-number">1.10.</span> <span class="toc-text">9. 流水线停顿与插入气泡</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9%E8%AE%B2%E8%A7%A3-12"><span class="toc-number">1.10.1.</span> <span class="toc-text">知识点讲解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E9%9C%80%E8%A6%81%E5%81%9C%E9%A1%BF"><span class="toc-number">1.10.2.</span> <span class="toc-text">什么时候需要停顿</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A1%AC%E4%BB%B6%E6%A3%80%E6%B5%8B%E5%8D%95%E5%85%83"><span class="toc-number">1.10.3.</span> <span class="toc-text">硬件检测单元</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E5%99%A8%E4%BC%98%E5%8C%96"><span class="toc-number">1.10.4.</span> <span class="toc-text">编译器优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%8F%E5%85%B8%E4%BE%8B%E9%A2%98-8"><span class="toc-number">1.10.5.</span> <span class="toc-text">经典例题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-%E5%88%86%E6%94%AF%E9%A2%84%E6%B5%8B"><span class="toc-number">1.11.</span> <span class="toc-text">10. 分支预测</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9%E8%AE%B2%E8%A7%A3-13"><span class="toc-number">1.11.1.</span> <span class="toc-text">知识点讲解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E5%88%86%E6%94%AF%E9%A2%84%E6%B5%8B"><span class="toc-number">1.11.2.</span> <span class="toc-text">静态分支预测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E5%88%86%E6%94%AF%E9%A2%84%E6%B5%8B"><span class="toc-number">1.11.3.</span> <span class="toc-text">动态分支预测</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E4%BD%8D%E9%A2%84%E6%B5%8B%E5%99%A8"><span class="toc-number">1.11.3.1.</span> <span class="toc-text">1 位预测器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E4%BD%8D%E9%A2%84%E6%B5%8B%E5%99%A8"><span class="toc-number">1.11.3.2.</span> <span class="toc-text">2 位预测器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%94%AF%E7%9B%AE%E6%A0%87%E7%BC%93%E5%86%B2%E5%99%A8%EF%BC%88BTB%EF%BC%89"><span class="toc-number">1.11.4.</span> <span class="toc-text">分支目标缓冲器（BTB）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%8F%E5%85%B8%E4%BE%8B%E9%A2%98-9"><span class="toc-number">1.11.5.</span> <span class="toc-text">经典例题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-%E5%BC%82%E5%B8%B8%E4%B8%8E%E4%B8%AD%E6%96%AD"><span class="toc-number">1.12.</span> <span class="toc-text">11. 异常与中断</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9%E8%AE%B2%E8%A7%A3-14"><span class="toc-number">1.12.1.</span> <span class="toc-text">知识点讲解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MIPS-%E4%B8%AD%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86"><span class="toc-number">1.12.2.</span> <span class="toc-text">MIPS 中的异常处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%81%E6%B0%B4%E7%BA%BF%E4%B8%AD%E7%9A%84%E5%BC%82%E5%B8%B8"><span class="toc-number">1.12.3.</span> <span class="toc-text">流水线中的异常</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-%E6%8C%87%E4%BB%A4%E7%BA%A7%E5%B9%B6%E8%A1%8C%EF%BC%88ILP%EF%BC%89"><span class="toc-number">1.13.</span> <span class="toc-text">12. 指令级并行（ILP）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9%E8%AE%B2%E8%A7%A3-15"><span class="toc-number">1.13.1.</span> <span class="toc-text">知识点讲解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ILP-%E7%9A%84%E6%9D%A5%E6%BA%90"><span class="toc-number">1.13.2.</span> <span class="toc-text">ILP 的来源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B6%85%E6%A0%87%E9%87%8F%EF%BC%88Superscalar%EF%BC%89"><span class="toc-number">1.13.3.</span> <span class="toc-text">超标量（Superscalar）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B6%85%E9%95%BF%E6%8C%87%E4%BB%A4%E5%AD%97%EF%BC%88VLIW%EF%BC%89"><span class="toc-number">1.13.4.</span> <span class="toc-text">超长指令字（VLIW）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%8F%E5%85%B8%E4%BE%8B%E9%A2%98-10"><span class="toc-number">1.13.5.</span> <span class="toc-text">经典例题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13-%E5%A4%9A%E5%91%A8%E6%9C%9F%E5%A4%84%E7%90%86%E5%99%A8-vs-%E5%8D%95%E5%91%A8%E6%9C%9F%E5%A4%84%E7%90%86%E5%99%A8"><span class="toc-number">1.14.</span> <span class="toc-text">13. 多周期处理器 vs 单周期处理器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9%E8%AE%B2%E8%A7%A3-16"><span class="toc-number">1.14.1.</span> <span class="toc-text">知识点讲解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E5%AF%B9%E6%AF%94"><span class="toc-number">1.14.2.</span> <span class="toc-text">设计对比</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E5%91%A8%E6%9C%9F%E5%A4%84%E7%90%86%E5%99%A8%E7%9A%84%E4%BC%98%E7%82%B9"><span class="toc-number">1.14.3.</span> <span class="toc-text">多周期处理器的优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%8F%E5%85%B8%E4%BE%8B%E9%A2%98-11"><span class="toc-number">1.14.4.</span> <span class="toc-text">经典例题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#14-%E7%8E%B0%E4%BB%A3%E5%A4%84%E7%90%86%E5%99%A8%E6%8A%80%E6%9C%AF"><span class="toc-number">1.15.</span> <span class="toc-text">14. 现代处理器技术</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9%E8%AE%B2%E8%A7%A3-17"><span class="toc-number">1.15.1.</span> <span class="toc-text">知识点讲解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B9%B1%E5%BA%8F%E6%89%A7%E8%A1%8C%EF%BC%88Out-of-Order-Execution%EF%BC%89"><span class="toc-number">1.15.2.</span> <span class="toc-text">乱序执行（Out-of-Order Execution）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8%E9%87%8D%E5%91%BD%E5%90%8D%EF%BC%88Register-Renaming%EF%BC%89"><span class="toc-number">1.15.3.</span> <span class="toc-text">寄存器重命名（Register Renaming）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A8%E6%B5%8B%E6%89%A7%E8%A1%8C%EF%BC%88Speculative-Execution%EF%BC%89"><span class="toc-number">1.15.4.</span> <span class="toc-text">推测执行（Speculative Execution）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8C%E6%97%B6%E5%A4%9A%E7%BA%BF%E7%A8%8B%EF%BC%88SMT-Hyper-Threading%EF%BC%89"><span class="toc-number">1.15.5.</span> <span class="toc-text">同时多线程（SMT &#x2F; Hyper-Threading）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%99%84%EF%BC%9A%E6%B5%81%E6%B0%B4%E7%BA%BF%E5%86%92%E9%99%A9%E9%80%9F%E6%9F%A5%E8%A1%A8"><span class="toc-number">1.16.</span> <span class="toc-text">附：流水线冒险速查表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%86%92%E9%99%A9%E8%BD%AC%E5%8F%91%E6%9D%A1%E4%BB%B6"><span class="toc-number">1.16.1.</span> <span class="toc-text">数据冒险转发条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9C%80%E8%A6%81%E5%81%9C%E9%A1%BF%E7%9A%84%E6%83%85%E5%86%B5"><span class="toc-number">1.16.2.</span> <span class="toc-text">需要停顿的情况</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%94%AF%E9%A2%84%E6%B5%8B%E9%80%9F%E6%9F%A5"><span class="toc-number">1.16.3.</span> <span class="toc-text">分支预测速查</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/08/10/%E9%98%B6%E6%AE%B5%E5%85%AD-%E5%86%B3%E8%B5%9B%E5%86%B2%E5%88%BA/" title="阶段六：决赛冲刺清单（最后 1 周）"><img src="/img/covers/mountain-night.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="阶段六：决赛冲刺清单（最后 1 周）"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/08/10/%E9%98%B6%E6%AE%B5%E5%85%AD-%E5%86%B3%E8%B5%9B%E5%86%B2%E5%88%BA/" title="阶段六：决赛冲刺清单（最后 1 周）">阶段六：决赛冲刺清单（最后 1 周）</a><time datetime="2026-08-10T13:14:00.000Z" title="发表于 2026-08-10 21:14:00">2026-08-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/08/10/%E9%98%B6%E6%AE%B5%E4%BA%94-%E5%8A%A8%E6%89%8B%E5%AE%9E%E8%B7%B5/" title="阶段五：动手实践（第 22~28 天）"><img src="/img/covers/cloudsea.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="阶段五：动手实践（第 22~28 天）"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/08/10/%E9%98%B6%E6%AE%B5%E4%BA%94-%E5%8A%A8%E6%89%8B%E5%AE%9E%E8%B7%B5/" title="阶段五：动手实践（第 22~28 天）">阶段五：动手实践（第 22~28 天）</a><time datetime="2026-08-10T13:12:00.000Z" title="发表于 2026-08-10 21:12:00">2026-08-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/08/10/%E9%98%B6%E6%AE%B5%E5%9B%9B-RMDB%E4%BB%A3%E7%A0%81%E7%B2%BE%E8%AF%BB/" title="阶段四：RMDB 代码精读（第 17~21 天）"><img src="/img/covers/lake.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="阶段四：RMDB 代码精读（第 17~21 天）"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/08/10/%E9%98%B6%E6%AE%B5%E5%9B%9B-RMDB%E4%BB%A3%E7%A0%81%E7%B2%BE%E8%AF%BB/" title="阶段四：RMDB 代码精读（第 17~21 天）">阶段四：RMDB 代码精读（第 17~21 天）</a><time datetime="2026-08-10T13:10:00.000Z" title="发表于 2026-08-10 21:10:00">2026-08-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/08/10/%E9%98%B6%E6%AE%B5%E4%B8%89-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA/" title="阶段三：数据库理论（第 12~16 天）"><img src="/img/covers/fireflies.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="阶段三：数据库理论（第 12~16 天）"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/08/10/%E9%98%B6%E6%AE%B5%E4%B8%89-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA/" title="阶段三：数据库理论（第 12~16 天）">阶段三：数据库理论（第 12~16 天）</a><time datetime="2026-08-10T13:08:00.000Z" title="发表于 2026-08-10 21:08:00">2026-08-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/08/10/%E9%98%B6%E6%AE%B5%E4%BA%8C-C++%E5%B9%B6%E5%8F%91/" title="阶段二：C++ 并发（第 8~11 天）"><img src="/img/covers/sunset.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="阶段二：C++ 并发（第 8~11 天）"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/08/10/%E9%98%B6%E6%AE%B5%E4%BA%8C-C++%E5%B9%B6%E5%8F%91/" title="阶段二：C++ 并发（第 8~11 天）">阶段二：C++ 并发（第 8~11 天）</a><time datetime="2026-08-10T13:06:00.000Z" title="发表于 2026-08-10 21:06:00">2026-08-10</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/covers/mountain-night.svg);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Aetik</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">🍉 Wanna Be Computer Science の 神</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(async () => {
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://Aetik-yue.github.io">Aetik</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://aetik-yue.github.io/2026/06/22/Chapter%204%20%E5%A4%84%E7%90%86%E5%99%A8%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/">https://aetik-yue.github.io/2026/06/22/Chapter%204%20%E5%A4%84%E7%90%86%E5%99%A8%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://Aetik-yue.github.io" target="_blank">Aetik's Blog🍉</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/">计算机组成原理</a><a class="post-meta__tags" href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a><a class="post-meta__tags" href="/tags/%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/">知识总结</a><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E9%80%9A%E8%B7%AF/">数据通路</a><a class="post-meta__tags" href="/tags/%E6%B5%81%E6%B0%B4%E7%BA%BF/">流水线</a><a class="post-meta__tags" href="/tags/%E5%86%92%E9%99%A9/">冒险</a></div><div class="post-share"><div class="social-share" data-image="/img/covers/lake.svg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/07/31/Git-Flow%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86%E8%A7%84%E8%8C%83%E6%8C%87%E5%8D%97/" title="Git Flow 分支管理规范指南"><img class="cover" src="/img/covers/desert.svg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post" loading='lazy'><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Git Flow 分支管理规范指南</div></div><div class="info-2"><div class="info-item-1">Git Flow 分支管理规范指南  在使用 Git 进行版本管理的过程中，如果没有清晰的流程和规划，每个人都提交一堆杂乱无章的 commit，项目很快就会变得难以协调和维护。Git 版本管理同样需要一个清晰的流程和规范，Vincent Driessen 为了解决这个问题提出了 A Successful Git Branching Model，也就是本文要介绍的 Git Flow 模型。   一、Git Flow 常用分支介绍 Git Flow 模型定义了五种核心分支，每种分支各司其职，共同构成完整的开发流程。 1.1 Production 分支（Master） 即我们经常使用的 Master 分支，这个分支保存的是最近发布到生产环境的代码。最近发布的 Release 都合并于此。 核心规则：  Master 分支只能从其他分支合并，不能在这个分支上直接修改 Master 分支上的每一个 Commit 都应该打上 Tag，标记版本号 一般情况下 Master 分支本身不存在直接提交的 Commit  1.2 Develop 分支 主开发分支，包含所有要发布到下一个 Release...</div></div></div></a><a class="pagination-related" href="/2026/06/22/Chapter%203%20%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%AE%97%E6%9C%AF%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" title="Chapter 3 计算机算术 — 知识点全面总结"><img class="cover" src="/img/covers/sunset.svg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post" loading='lazy'><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Chapter 3 计算机算术 — 知识点全面总结</div></div><div class="info-2"><div class="info-item-1">Chapter 3 计算机算术 — 知识点全面总结  本文档总结了计算机组成原理第3章《计算机算术》的全部知识点，基于原版 PPT 教材内容编写，使用通俗易懂的语言讲解，并附带经典例题帮助理解巩固。   目录  ALU 的设计 快速加法器 整数加法和减法 乘法运算 除法运算 浮点数的表示（IEEE 754） 浮点加减法运算 浮点乘除法运算 MIPS 浮点指令 并行性与结合律 精确算术与常见误区   1. ALU 的设计 知识点讲解 ALU（算术逻辑单元） 是 CPU 的核心运算部件。PPT 采用自底向上的方法：先设计一位 ALU，再扩展到 32 位。  通俗理解：ALU 就像 CPU 的&quot;计算器&quot;，能做加、减、与、或、比较等所有运算。它是由很多个&quot;一位计算器&quot;组成的。  1.1 一位 ALU 的构建 半加器（Half Adder） 只考虑两个输入位，不考虑进位输入：    A B 进位© 和(S)     0 0 0 0   0 1 0 1   1 0 0 1   1 1 1 0    12S = A XOR BC = A AND B 全加...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/06/22/Chapter%203%20%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%AE%97%E6%9C%AF%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" title="Chapter 3 计算机算术 — 知识点全面总结"><img class="cover" src="/img/covers/sunset.svg" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-06-22</div><div class="info-item-2">Chapter 3 计算机算术 — 知识点全面总结</div></div><div class="info-2"><div class="info-item-1">Chapter 3 计算机算术 — 知识点全面总结  本文档总结了计算机组成原理第3章《计算机算术》的全部知识点，基于原版 PPT 教材内容编写，使用通俗易懂的语言讲解，并附带经典例题帮助理解巩固。   目录  ALU 的设计 快速加法器 整数加法和减法 乘法运算 除法运算 浮点数的表示（IEEE 754） 浮点加减法运算 浮点乘除法运算 MIPS 浮点指令 并行性与结合律 精确算术与常见误区   1. ALU 的设计 知识点讲解 ALU（算术逻辑单元） 是 CPU 的核心运算部件。PPT 采用自底向上的方法：先设计一位 ALU，再扩展到 32 位。  通俗理解：ALU 就像 CPU 的&quot;计算器&quot;，能做加、减、与、或、比较等所有运算。它是由很多个&quot;一位计算器&quot;组成的。  1.1 一位 ALU 的构建 半加器（Half Adder） 只考虑两个输入位，不考虑进位输入：    A B 进位© 和(S)     0 0 0 0   0 1 0 1   1 0 0 1   1 1 1 0    12S = A XOR BC = A AND B 全加...</div></div></div></a><a class="pagination-related" href="/2026/06/15/Chapter%201%20%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%BD%E8%B1%A1%E6%A6%82%E5%BF%B5%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" title="Chapter 1 计算机抽象概念与技术 — 知识点全面总结"><img class="cover" src="/img/covers/aurora.svg" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-06-15</div><div class="info-item-2">Chapter 1 计算机抽象概念与技术 — 知识点全面总结</div></div><div class="info-2"><div class="info-item-1">Chapter 1 计算机抽象概念与技术 — 知识点全面总结  本文档总结了计算机组成原理第1章《计算机抽象概念与技术》的全部知识点，使用通俗易懂的语言讲解，并附带经典例题帮助理解巩固。   目录  计算机系统的基本组成 计算机的发展历史 性能与功耗 计算机性能的度量 计算机的分类 影响性能的因素 摩尔定律与技术趋势   1. 计算机系统的基本组成 知识点讲解 计算机系统由硬件和软件两大部分组成。它们的关系就像&quot;身体&quot;和&quot;灵魂&quot;——硬件是看得见摸得着的设备，软件是让硬件工作的程序。  通俗理解：硬件就像钢琴（物理设备），软件就像乐谱（告诉钢琴弹什么）。没有乐谱，钢琴不会自己发声；没有钢琴，乐谱也只是纸上符号。  硬件的主要组成部分    部件 功能 类比     中央处理器（CPU） 执行指令、进行运算 工厂的工人   内存（Memory/主存） 存储正在运行的程序和数据 工人的工作台   硬盘（Secondary Storage） 长期存储大量数据 工厂的仓库   输入设备 接收用户输入（键盘、鼠标等） 进货的入口   输出设备 向用户展...</div></div></div></a><a class="pagination-related" href="/2026/06/22/Chapter%202%20%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E6%8C%87%E4%BB%A4%E8%AF%AD%E8%A8%80%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" title="Chapter 2 计算机的指令语言 — 知识点全面总结"><img class="cover" src="/img/covers/cloudsea.svg" alt="cover" loading='lazy'><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-06-22</div><div class="info-item-2">Chapter 2 计算机的指令语言 — 知识点全面总结</div></div><div class="info-2"><div class="info-item-1">Chapter 2 计算机的指令语言 — 知识点全面总结  本文档总结了计算机组成原理第2章《计算机的指令语言》的全部知识点，使用通俗易懂的语言讲解，并附带经典例题帮助理解巩固。   目录  指令的基本概念 MIPS 指令格式 MIPS 算术指令 MIPS 数据传输指令 MIPS 逻辑指令 MIPS 条件分支指令 MIPS 无条件跳转指令 过程调用（函数） 寻址方式总结 机器编码与指令翻译   1. 指令的基本概念 知识点讲解 计算机指令 就是计算机能&quot;听懂&quot;的最基本的命令。就像我们用中文说话一样，计算机也有自己的&quot;语言&quot;，叫做机器语言。但是机器语言全是 0 和 1，人类很难直接看懂，所以我们用汇编语言（如 MIPS、RISC-V、x86）来编写指令，然后通过汇编器翻译成机器码。  通俗理解：指令就是&quot;计算机的单词&quot;，指令集就是&quot;计算机的词汇表&quot;。不同品牌的 CPU（Intel、ARM、MIPS）有各自不同的词汇表。  关键概念           硬件和软件之间的&quot;契约&quot;——规定...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/headimgnew.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/ loading='lazy'></div><div class="author-info-name">Aetik</div><div class="author-info-description">Wanna Be Computer Science の 神 🍉</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">25</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">43</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Aetik-yue"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/Aetik-yue" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:yanhaoruiruihaoyan@163.com" target="_blank" title="网易163邮箱"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="https://space.bilibili.com/517569450?spm_id_from=333.1007.0.0" target="_blank" title="Bilibili"><i class="iconfont icon-bilibili" style="color: #f05383;"></i></a><a class="social-icon" href="https://leetcode.cn/u/an-pei-la-xing-ren-d/" target="_blank" title="LeetCode"><i class="iconfont icon-leetcode2" style="color: #FFA116;"></i></a><a class="social-icon" href="https://blog.csdn.net/Aetik?spm=1000.2115.3001.5343" target="_blank" title="CSDN"><i class="iconfont icon-csdn" style="color: #DC3545;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">🍉 欢迎光临！这里记录我的学习日志与日常生活</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">Chapter 4 处理器 — 知识点全面总结</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.1.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.2.</span> <span class="toc-text">1. 处理器的基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.2.1.</span> <span class="toc-text">知识点讲解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.2.2.</span> <span class="toc-text">指令执行的五个阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.2.3.</span> <span class="toc-text">两种基本设计方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.2.4.</span> <span class="toc-text">关键术语</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.3.</span> <span class="toc-text">2. 数据通路（Datapath）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.3.1.</span> <span class="toc-text">知识点讲解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.3.2.</span> <span class="toc-text">核心组件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.3.3.</span> <span class="toc-text">经典例题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.4.</span> <span class="toc-text">3. 控制单元（Control Unit）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.4.1.</span> <span class="toc-text">知识点讲解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.4.2.</span> <span class="toc-text">主要控制信号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.4.3.</span> <span class="toc-text">各类指令的控制信号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.4.4.</span> <span class="toc-text">经典例题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.5.</span> <span class="toc-text">4. 单周期处理器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.5.1.</span> <span class="toc-text">知识点讲解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.5.2.</span> <span class="toc-text">设计要点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.5.3.</span> <span class="toc-text">关键路径（Critical Path）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.5.4.</span> <span class="toc-text">单周期 vs 其他设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.5.5.</span> <span class="toc-text">经典例题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.6.</span> <span class="toc-text">5. 流水线（Pipeline）概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.6.1.</span> <span class="toc-text">知识点讲解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.6.2.</span> <span class="toc-text">五级流水线</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.6.3.</span> <span class="toc-text">流水线的性能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.6.4.</span> <span class="toc-text">流水线加速比</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.6.5.</span> <span class="toc-text">经典例题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.7.</span> <span class="toc-text">6. 流水线数据通路</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.7.1.</span> <span class="toc-text">知识点讲解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.7.2.</span> <span class="toc-text">五级流水线的流水线寄存器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.7.3.</span> <span class="toc-text">控制信号的流水线传递</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.8.</span> <span class="toc-text">7. 流水线冒险（Hazards）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.8.1.</span> <span class="toc-text">知识点讲解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.8.2.</span> <span class="toc-text">7.1 结构冒险（Structural Hazard）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">1.8.2.1.</span> <span class="toc-text">知识点讲解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">1.8.2.2.</span> <span class="toc-text">举例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">1.8.2.3.</span> <span class="toc-text">解决方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">1.8.2.4.</span> <span class="toc-text">经典例题</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.8.3.</span> <span class="toc-text">7.2 数据冒险（Data Hazard）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">1.8.3.1.</span> <span class="toc-text">知识点讲解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">1.8.3.2.</span> <span class="toc-text">三种数据冒险类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">1.8.3.3.</span> <span class="toc-text">数据冒险检测</span></a></li><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">1.8.3.4.</span> <span class="toc-text">经典例题</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.8.4.</span> <span class="toc-text">7.3 控制冒险（Control Hazard）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">1.8.4.1.</span> <span class="toc-text">知识点讲解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">1.8.4.2.</span> <span class="toc-text">分支指令的时间线</span></a></li><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">1.8.4.3.</span> <span class="toc-text">解决方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.9.</span> <span class="toc-text">8. 转发（Forwarding）技术</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.9.1.</span> <span class="toc-text">知识点讲解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.9.2.</span> <span class="toc-text">转发的工作原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.9.3.</span> <span class="toc-text">转发路径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.9.4.</span> <span class="toc-text">需要转发的指令组合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.9.5.</span> <span class="toc-text">经典例题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.10.</span> <span class="toc-text">9. 流水线停顿与插入气泡</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.10.1.</span> <span class="toc-text">知识点讲解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.10.2.</span> <span class="toc-text">什么时候需要停顿</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.10.3.</span> <span class="toc-text">硬件检测单元</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.10.4.</span> <span class="toc-text">编译器优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.10.5.</span> <span class="toc-text">经典例题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.11.</span> <span class="toc-text">10. 分支预测</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.11.1.</span> <span class="toc-text">知识点讲解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.11.2.</span> <span class="toc-text">静态分支预测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.11.3.</span> <span class="toc-text">动态分支预测</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">1.11.3.1.</span> <span class="toc-text">1 位预测器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">1.11.3.2.</span> <span class="toc-text">2 位预测器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.11.4.</span> <span class="toc-text">分支目标缓冲器（BTB）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.11.5.</span> <span class="toc-text">经典例题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.12.</span> <span class="toc-text">11. 异常与中断</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.12.1.</span> <span class="toc-text">知识点讲解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.12.2.</span> <span class="toc-text">MIPS 中的异常处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.12.3.</span> <span class="toc-text">流水线中的异常</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.13.</span> <span class="toc-text">12. 指令级并行（ILP）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.13.1.</span> <span class="toc-text">知识点讲解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.13.2.</span> <span class="toc-text">ILP 的来源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.13.3.</span> <span class="toc-text">超标量（Superscalar）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.13.4.</span> <span class="toc-text">超长指令字（VLIW）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.13.5.</span> <span class="toc-text">经典例题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.14.</span> <span class="toc-text">13. 多周期处理器 vs 单周期处理器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.14.1.</span> <span class="toc-text">知识点讲解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.14.2.</span> <span class="toc-text">设计对比</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.14.3.</span> <span class="toc-text">多周期处理器的优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.14.4.</span> <span class="toc-text">经典例题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.15.</span> <span class="toc-text">14. 现代处理器技术</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.15.1.</span> <span class="toc-text">知识点讲解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.15.2.</span> <span class="toc-text">乱序执行（Out-of-Order Execution）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.15.3.</span> <span class="toc-text">寄存器重命名（Register Renaming）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.15.4.</span> <span class="toc-text">推测执行（Speculative Execution）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.15.5.</span> <span class="toc-text">同时多线程（SMT &#x2F; Hyper-Threading）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.16.</span> <span class="toc-text">附：流水线冒险速查表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.16.1.</span> <span class="toc-text">数据冒险转发条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.16.2.</span> <span class="toc-text">需要停顿的情况</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.16.3.</span> <span class="toc-text">分支预测速查</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/08/10/%E9%98%B6%E6%AE%B5%E5%85%AD-%E5%86%B3%E8%B5%9B%E5%86%B2%E5%88%BA/" title="阶段六：决赛冲刺清单（最后 1 周）"><img src="/img/covers/sakura.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="阶段六：决赛冲刺清单（最后 1 周）"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/08/10/%E9%98%B6%E6%AE%B5%E5%85%AD-%E5%86%B3%E8%B5%9B%E5%86%B2%E5%88%BA/" title="阶段六：决赛冲刺清单（最后 1 周）">阶段六：决赛冲刺清单（最后 1 周）</a><time datetime="2026-08-10T13:14:00.000Z" title="发表于 2026-08-10 21:14:00">2026-08-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/08/10/%E9%98%B6%E6%AE%B5%E4%BA%94-%E5%8A%A8%E6%89%8B%E5%AE%9E%E8%B7%B5/" title="阶段五：动手实践（第 22~28 天）"><img src="/img/covers/desert.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="阶段五：动手实践（第 22~28 天）"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/08/10/%E9%98%B6%E6%AE%B5%E4%BA%94-%E5%8A%A8%E6%89%8B%E5%AE%9E%E8%B7%B5/" title="阶段五：动手实践（第 22~28 天）">阶段五：动手实践（第 22~28 天）</a><time datetime="2026-08-10T13:12:00.000Z" title="发表于 2026-08-10 21:12:00">2026-08-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/08/10/%E9%98%B6%E6%AE%B5%E5%9B%9B-RMDB%E4%BB%A3%E7%A0%81%E7%B2%BE%E8%AF%BB/" title="阶段四：RMDB 代码精读（第 17~21 天）"><img src="/img/covers/aurora.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="阶段四：RMDB 代码精读（第 17~21 天）"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/08/10/%E9%98%B6%E6%AE%B5%E5%9B%9B-RMDB%E4%BB%A3%E7%A0%81%E7%B2%BE%E8%AF%BB/" title="阶段四：RMDB 代码精读（第 17~21 天）">阶段四：RMDB 代码精读（第 17~21 天）</a><time datetime="2026-08-10T13:10:00.000Z" title="发表于 2026-08-10 21:10:00">2026-08-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/08/10/%E9%98%B6%E6%AE%B5%E4%B8%89-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA/" title="阶段三：数据库理论（第 12~16 天）"><img src="/img/covers/cloudsea.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="阶段三：数据库理论（第 12~16 天）"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/08/10/%E9%98%B6%E6%AE%B5%E4%B8%89-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%90%86%E8%AE%BA/" title="阶段三：数据库理论（第 12~16 天）">阶段三：数据库理论（第 12~16 天）</a><time datetime="2026-08-10T13:08:00.000Z" title="发表于 2026-08-10 21:08:00">2026-08-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/08/10/%E9%98%B6%E6%AE%B5%E4%BA%8C-C++%E5%B9%B6%E5%8F%91/" title="阶段二：C++ 并发（第 8~11 天）"><img src="/img/covers/mountain-night.svg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="阶段二：C++ 并发（第 8~11 天）"/ loading='lazy'></a><div class="content"><a class="title" href="/2026/08/10/%E9%98%B6%E6%AE%B5%E4%BA%8C-C++%E5%B9%B6%E5%8F%91/" title="阶段二：C++ 并发（第 8~11 天）">阶段二：C++ 并发（第 8~11 天）</a><time datetime="2026-08-10T13:06:00.000Z" title="发表于 2026-08-10 21:06:00">2026-08-10</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/covers/lake.svg);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Aetik</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">🍉 Wanna Be Computer Science の 神</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(async () => {
   const showKatex = () => {
     document.querySelectorAll('#article-container .katex').forEach(el => el.classList.add('katex-show'))
   }
